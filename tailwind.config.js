@@ -12,8 +12,11 @@ module.exports = {
         purple: {
           dark: '#773DB4',
           DEFAULT: '#834DBB',
-          light: '#9747FF',
           lighter: '#EDDCFF'
+        },
+        lavender: {
+          dark: '#8A37F5',
+          DEFAULT: '#9747FF',
         },
         stat: {
           wait: '#FFE45E',

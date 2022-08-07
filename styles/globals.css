@@ -17,8 +17,8 @@ h2 {
   font-size: 16px;
 }
 
-#checkbox {
-  display: none;
+h3 {
+  font-size: 14.5px;
 }
 
 #tri {
@@ -34,11 +34,38 @@ h2 {
   transform: rotate(180deg);
 }
 
+.title {
+  @apply font-bold text-2xl pb-1;
+}
+
 .btn-nav button {
   @apply bg-white py-2 px-3 font-extrabold text-purple hover:bg-opacity-80 transition duration-200 rounded-lg;
 }
 
 .btn-nav button:disabled, button[disabled] {
   @apply bg-purple-lighter hover:bg-opacity-100;
+}
+
+#login input {
+  background-color: #FAFBFC;
+  border: 1px solid #DBDCDC;
+  @apply rounded-lg px-3 py-2 text-sm max-w-full md:w-9/12;
+}
+
+.btn-pwd {
+  @apply rounded-full py-1.5 px-1 hover:bg-gray transition duration-200;
+}
+
+.btn-lavender {
+  @apply bg-lavender text-white hover:bg-lavender-dark transition duration-200;
+}
+
+.btn-lavender:disabled, .btn-lavender[disabled]  {
+  background-color: #D0A3FF;
+}
+
+.badge {
+  font-size: 10.5px;
+  @apply text-purple font-medium px-1 rounded bg-purple-lighter float-right ml-2 mt-0.5;
 }
   
