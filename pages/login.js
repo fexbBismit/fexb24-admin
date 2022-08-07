@@ -13,7 +13,7 @@ export default function Login() {
             <div className="bg-[url('../public/assets/bg-login.png')] h-screen items-center flex justify-center p-2">
                 <div className="bg-white rounded-3xl max-w-md max-h-fit p-10 text-center shadow-2xl">
                     <div className="flex justify-center pb-6">
-                        <img src={'assets/logo.png'} alt="" objectFit="cover" className="h-12 "/>
+                        <img src={'assets/logo.png'} alt="" objectFit="cover" className="h-12"/>
                     </div>
                     <div className="title">ADMIN LOGIN PANEL</div>
                     <h3>Welcome Back!</h3>
@@ -23,7 +23,7 @@ export default function Login() {
                             <input type={showPwd?"text":"password"} placeholder="Enter your password *" className="relative" />
                             <span className="pt-1.5 absolute">
                                 <button className="btn-pwd -ml-12" onClick={(e) => togglePwd(e)}>
-                                    <img src={showPwd? "assets/show-pwd.svg":"assets/hide-pwd.svg"} className="h-3.5" />
+                                    <img src={showPwd? "assets/show-pwd.svg":"assets/hide-pwd.svg"} className="h-3.5" alt=""/>
                                 </button>
                             </span>
                         </form>

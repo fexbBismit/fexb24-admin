@@ -1,10 +1,7 @@
-import { useRouter } from "next/router";
 import React from "react";
 import { Menu, Transition } from '@headlessui/react'
 
 const Navbar = () => {
-    const router = useRouter();
-    const isHome = router.pathname === '/';
 
     function mobileOnClick() {
         document.querySelector(".mobile-menu").classList.toggle("hidden");
@@ -22,8 +19,8 @@ const Navbar = () => {
                     </div>
 
                     <div className="btn-nav hidden md:flex items-center space-x-4">
-                        <a href="/"><button disabled={isHome}><img src={"assets/home.svg"} className="float-left pr-1 mt-0.5 h-4 align-middle" alt="" />Home</button></a>
-                        <a href="/order-details"><button disabled={!isHome}><img src={"assets/cart.svg"} className="float-left pr-1 mt-0.5 h-4 align-middle" alt="" />Order Details</button></a>
+                        <a href="https://fexb.netlify.app/"><button><img src={"assets/home.svg"} className="float-left pr-1 mt-0.5 h-4 align-middle" alt="" />Home</button></a>
+                        <a href="/order-details"><button disabled><img src={"assets/cart.svg"} className="float-left pr-1 mt-0.5 h-4 align-middle" alt="" />Order Details</button></a>
                     </div>
                     
                     <div className="hidden md:flex items-center">
@@ -78,12 +75,9 @@ const Navbar = () => {
             </div>
             <div className="hidden mobile-menu ">
                 <ul className="bg-gray-light font-medium text-black divide-y divide-gray-200 transition duration-1000 ease-in-out">
-                    <li className="block text-sm px-2 py-4"><a href="index.html" className="">Hello, FexFEB@gmail.com</a></li>
+                    <li onClick={() => mobileOnClick()} className="cursor-pointer block text-sm px-2 py-4"><p className="">Hello, FexFEB@gmail.com<span className="font-stretch px-2">▴</span></p><div className="float-right border-solid border-t-black border-t-3 border-x-transparent border-x-3 border-b-0"></div></li>
                     <div role="none">
-                        {!isHome? 
-                            <li><a href="/" className="block text-sm px-2 py-4 hover:bg-gray transition duration-300">Home</a></li>:
-                            <li><a href="/order-details" className="block text-sm px-2 py-4 hover:bg-gray transition duration-300">Order Details</a></li>
-                        }
+                        <li><a href="https://fexb.netlify.app/" className="block text-sm px-2 py-4 hover:bg-gray transition duration-300">Home</a></li>
                         <li><a href="/logout" className="block text-sm text-red px-2 py-4 hover:bg-gray transition duration-300">Sign Out</a></li>
                     </div>
                 </ul>
