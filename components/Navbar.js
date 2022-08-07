@@ -43,7 +43,7 @@ const Navbar = () => {
                                     <Menu.Item>
                                     {({ active }) => (
                                         <a className={`${active}`} href="/">
-                                            <div className="origin-top-right font-medium absolute right-0 mt-6 w-32 rounded-xl shadow-lg bg-white hover:bg-gray-lighter" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1" id="tri-drop">
+                                            <div className="origin-top-right font-medium absolute right-0 mt-6 w-32 rounded-xl shadow-lg bg-white hover:bg-gray" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1" id="tri-drop">
                                                 <div className="py-1" role="none">
                                                     <button className="text-red block w-full text-left px-4 py-2 text-sm" tabindex="-1" role="menuitem"><h2>Sign Out</h2></button>
                                                 </div>

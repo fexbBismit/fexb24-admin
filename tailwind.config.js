@@ -12,6 +12,7 @@ module.exports = {
         purple: {
           dark: '#773DB4',
           DEFAULT: '#834DBB',
+          light: '#E6D2FB',
           lighter: '#EDDCFF'
         },
         lavender: {
@@ -27,8 +28,9 @@ module.exports = {
         navy: '#0A2942',
         red: '#FF5F5F',
         drop: {
-          DEFAULT: '#636B78',
-          light: '#A1A6AD',
+          dark: '#838383',
+          DEFAULT: '#BCBCBC',
+          light: '#E4E4E4',
           lighter: '#EEEEEE'
         },
         gray: {
