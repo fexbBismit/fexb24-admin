@@ -19,10 +19,19 @@ module.exports = {
           dark: '#8A37F5',
           DEFAULT: '#9747FF',
         },
-        stat: {
-          wait: '#FFE45E',
-          paid: '#1AD342',
-          cancel: '#F9A4A4'
+        wait: {
+          out: '#FFE45E',
+          in: '#FFF8D7',
+          DEFAULT: '#F5B57E'
+        },
+        paid: {
+          out: '#52FA77',
+          in: '#D4FEDD',
+          DEFAULT: '#1AD342'
+        },
+        cancel: {
+          in: '#FDE8E8',
+          DEFAULT: '#F9A4A4',
         },
         blue: '#5EABE3',
         navy: '#0A2942',

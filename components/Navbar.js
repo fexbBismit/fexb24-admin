@@ -9,7 +9,7 @@ const Navbar = () => {
 
     return (
         <div>
-        <nav className="bg-purple shadow-lg text-white md:h-20">
+        <nav className="bg-purple shadow-md text-white md:h-20">
             <div className="px-6 md:px-14 mx-auto">
                 <div className="flex justify-between">
                     <div className="flex space-x-7">
@@ -19,8 +19,8 @@ const Navbar = () => {
                     </div>
 
                     <div className="btn-nav hidden md:flex items-center space-x-4">
-                        <a href="https://fexb.netlify.app/"><button><img src={"assets/home.svg"} className="float-left pr-1 mt-0.5 h-4 align-middle" alt="" />Home</button></a>
-                        <a href="/order-details"><button disabled><img src={"assets/cart.svg"} className="float-left pr-1 mt-0.5 h-4 align-middle" alt="" />Order Details</button></a>
+                        <a href="https://fexb.netlify.app/"><button><img src={"assets/home.svg"} className="float-left pr-1 mt-0.5 h-4" alt="" />Home</button></a>
+                        <a href="/order-details"><button disabled><img src={"assets/cart.svg"} className="float-left pr-1 mt-0.5 h-4" alt="" />Order Details</button></a>
                     </div>
                     
                     <div className="hidden md:flex items-center">

@@ -1,5 +1,6 @@
 import React from "react"
 import FilterStatus from "../components/FilterStatus"
+import OrderTable from "../components/OrderTable"
 import Pagination from "../components/Pagination"
 import SearchBar from "../components/SearchBar"
 import Sorter from "../components/Sorter"
@@ -45,6 +46,9 @@ export default function OrderDetails() {
                         <img src="assets/delete.svg" alt="" className="h-3 md:h-4" /><p>Delete</p>
                     </button>
                 </div>
+            </div>
+            <div>
+                <OrderTable />
             </div>
         </div>
     )

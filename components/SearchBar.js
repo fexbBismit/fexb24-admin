@@ -29,7 +29,7 @@ const SearchBar = () => {
                             </svg>
                         </div>
                     </button>
-                    <div className="dropdown hidden w-20 md:w-32 -ml-0.5 md:search-drop" id="search-drop">
+                    <div className="dropdown hidden w-20 md:w-32 -ml-0.5 search-drop" id="search-drop">
                     <ul className="cursor-pointer">
                         <li className="flex items-start py-1 px-1 md:px-2 hover:bg-drop-light choice-first transition duration-200"><div className="w-4 mt-1 mr-0.5"><img src="assets/check.svg" alt="" className="h-2.5"/></div>By ID Order</li>
                         <li className="flex items-start py-1 px-1 md:px-2 hover:bg-drop-light choice-last transition duration-200"><div className="w-4 mt-1 mr-0.5"><img src="assets/check.svg" alt="" className="h-2.5"/></div>By Customer</li>
