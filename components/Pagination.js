@@ -2,8 +2,8 @@ import React from "react";
 
 const Pagination = () => {
     return (
-        <div className="pagination">
-            <div className="py-4 pl-2 md:pl-0 mx-auto flex md:justify-end">
+        <div className="pagination first-bar-child">
+            <div className="py-4 pl-2 md:pl-0 mx-auto flex">
                 <div className="flex space-x-2.5 text-xs md:text-sm items-center">
                     <span className="text-lavender">1024 items</span>
                     <button className="btn-small rounded-md p-1.5 w-7 h-7">

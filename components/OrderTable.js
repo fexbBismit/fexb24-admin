@@ -107,7 +107,7 @@ const OrderTable = () => {
                         <th className=""></th>
                     </tr>
                 </thead>
-                <tbody className="border border-gray align-bottom">
+                <tbody className="border border-gray">
                     {orders.map(order => (
                         <tr>
                             <td className="w-6 md:w-9 ">
@@ -118,15 +118,15 @@ const OrderTable = () => {
                             </td>
                             <td className="font-bold">{order.id}</td>
                             <td>
-                                {order.status === 'Paid' && <div className="btn-status border-paid-out text-paid bg-paid-in">{order.status}</div>}
+                                {order.status === 'Paid' && <div className="btn-status border-paid-out text-paid bg-paid-in w-full">{order.status}</div>}
                                 
-                                {order.status === 'Waiting' && <div className="btn-status border-wait-out text-wait bg-wait-in">{order.status}</div>}
+                                {order.status === 'Waiting' && <div className="btn-status border-wait-out text-wait bg-wait-in w-full">{order.status}</div>}
                                 
-                                {order.status === 'Cancelled' && <div className="btn-status border-cancel text-cancel bg-cancel-in">{order.status}</div>}
+                                {order.status === 'Cancelled' && <div className="btn-status border-cancel text-cancel bg-cancel-in w-full">{order.status}</div>}
                             </td>
                             <td className="md:w-24">{formatDate(new Date())}</td>
                             <td className="font-bold">{order.customer}</td>
-                            <td className="font-bold hide-mobile w-36"><span className="text-purple">FExB FEBUI 2022</span> x {order.ticket}</td>
+                            <td className="font-bold hide-mobile w-36"><p><span className="text-purple">FExB FEBUI 2022</span> x {order.ticket}</p></td>
                             <td className="hide-mobile">{order.gateway}</td>
                             <td className="hide-mobile">Rp {order.discount.toLocaleString('id')}</td>
                             <td className="font-bold hide-mobile">Rp {order.total.toLocaleString('id')}</td>

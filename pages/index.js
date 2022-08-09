@@ -7,9 +7,9 @@ import Sorter from "../components/Sorter"
 
 export default function Home() {
   return (
-    <div className="px-3 sm:px-10 md:px-14" >
-      <div className=" mx-auto md:justify-between md:flex ">
-          <div className="flex justify-center items-center pt-5 md:pt-0">
+    <div className="px-3 sm:px-10 md:px-14 page" >
+      <div className=" mx-auto first-bar">
+          <div className="flex justify-center items-center pt-5 md:pt-0 first-bar-child">
               <div className="font-bold text-purple flex items-center divide-x-2">
                   <div className="pr-1.5 md:px-2.5">
                       <h3 className="float-left text-xs md:text-sm -mr-0.5">All</h3>
@@ -32,12 +32,12 @@ export default function Home() {
           <Pagination />
       </div>
       <hr className="border-2 border-drop-lighter" />
-      <div className="mx-auto md:justify-between md:flex py-4">
-          <div className="flex justify-center space-x-1.5 md:space-x-2.5 text-2xs md:text-sm items-stretch">
+      <div className="mx-auto py-4 second-bar">
+          <div className="flex justify-center space-x-1.5 md:space-x-2.5 text-2xs md:text-sm second-bar-child">
               <Sorter />
               <FilterStatus />
           </div>
-          <div className="flex justify-center space-x-1.5 md:space-x-2.5 text-2xs md:text-sm pt-3 md:pt-0">
+          <div className="flex justify-center space-x-1.5 md:space-x-2.5 text-2xs md:text-sm pt-3 md:pt-0 second-bar-child">
               <SearchBar />
               <button className="btn-small border-none rounded-2xl md:rounded-xl font-semibold md:font-medium flex items-center space-x-1 md:space-x-2 px-2 pr-2.5 md:px-3">
                   <img src="assets/export.svg" alt="" className="h-3 md:h-4" /><p>Export</p>

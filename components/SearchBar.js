@@ -15,7 +15,7 @@ const SearchBar = () => {
     }
 
     return (
-        <div>
+        <div className="search-bar">
             <div className="rounded-2xl bg-purple-lighter border-2 border-purple-lighter flex">
                 <div className="rounded-2xl text-purple font-semibold bg-purple-lighter" >
                     <button className="relative cursor-pointer w-20 md:w-32 flex items-center px-1 md:px-3 py-2" onClick={() => showDropdown()} onBlur={() => hideDropdown()}>
@@ -37,12 +37,12 @@ const SearchBar = () => {
                     </div>
                 </div>
                 <div className="bg-white flex items-center px-1 md:px-3">
-                    <img src="assets/search.svg" alt="" className="h-5 md:h-auto"/>
+                    <img src="assets/search.svg" alt="" className="md:h-auto"/>
                 </div>
                 <input type="text" className=" md:py-2 text-2xs md:text-sm w-28 md:w-32" id="search" placeholder="Search Orders"  />
                 <div className="bg-white flex items-center px-1 md:px-2 search-x">
                     <button className="rounded-full p-1 md:p-1.5" onClick={(e) => clearInput(e)}>
-                        <img src="assets/cross.svg" className="h-6 md:h-auto" alt=""/>
+                        <img src="assets/cross.svg" className="md:h-auto" alt=""/>
                     </button>
                 </div>
             </div>

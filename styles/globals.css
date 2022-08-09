@@ -226,23 +226,26 @@ input:focus{
   @apply border-1 rounded-xl font-semibold md:font-bold text-2xs md:text-sm text-center py-0.5 md:py-1 px-1.5 md:px-3;
 }
 
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.page {
+  min-width: 400px;
+  overflow-x: auto;
+}
+
 @media (min-width: 768px) {
   .search-drop {
     margin-top: -2.36rem;
   }
 
   #order-table tbody {
-    max-height: 19.5rem;  
+    max-height: calc(100vh - 18.5rem);
     overflow-y: auto; 
     overflow-x: auto; 
   }
-    
-  :root {
-    --height-height: 1500px;
-    --cell-width: 115px;
-  }
 
-  /* Treat all as divs */
   .header-fixed > thead,
   .header-fixed > tbody,
   .header-fixed > thead > tr,
@@ -252,10 +255,8 @@ input:focus{
     display: block;
   }
 
-  /* Prevent header to wrap */
   .header-fixed > thead > tr > th {
     white-space: nowrap;
-    /* background-color: lightgrey; */
   }
 
   .header-fixed > tbody > tr:after,
@@ -268,49 +269,100 @@ input:focus{
 
   .header-fixed > tbody {
     overflow-y: auto;
-    height: var(--height-height);
   }
 
   .header-fixed > tbody > tr > td,
   .header-fixed > thead > tr > th {
-    width: var(--cell-width);
+    width: 7.15rem;
     float: left;
+    display: flex;
+    align-items: center;
+    justify-content:center;
   }
+
   .header-fixed td:first-child,
   .header-fixed th:first-child {
     width: 2.5rem;
-    margin-left: 0.625rem;
+    margin-right: 0.625rem;
   }
   .header-fixed td:nth-child(5),
   .header-fixed th:nth-child(5),
+  .header-fixed td:nth-child(6),
+  .header-fixed th:nth-child(6),
   .header-fixed td:nth-child(9),
   .header-fixed th:nth-child(9) {
-    width: 9rem;
+    width: 8.45rem;
   }
 
-  #order-table td > *{
-    vertical-align: top !important;
+  .header-fixed td {
+    height: 4rem;
+    vertical-align: middle;
   }
 
-  /* Works on Firefox */
-  * {
+  .table-wrapper *,
+  .table-wrapper {
     scrollbar-width: thin;
     scrollbar-color: #D9D9D9 #F5F5F5;
   }
 
-  /* Works on Chrome, Edge, and Safari */
-  *::-webkit-scrollbar {
+  .table-wrapper *::-webkit-scrollbar,
+  .table-wrapper::-webkit-scrollbar {
+    height: 12px;
     width: 12px;
   }
 
-  *::-webkit-scrollbar-track {
+  .table-wrapper *::-webkit-scrollbar-track,
+  .table-wrapper::-webkit-scrollbar-track {
     background: #F5F5F5;
   }
 
-  *::-webkit-scrollbar-thumb {
+  .table-wrapper *::-webkit-scrollbar-thumb,
+  .table-wrapper::-webkit-scrollbar-thumb {
     background-color: #D9D9D9;
     border-radius: 20px;
     border: 3px solid #D9D9D9;
+  }
+
+  #order-table {
+    min-width: 1156px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 952px) {
+  .first-bar-child:first-child {
+    @apply pt-4;
+  }
+
+  #navbar {
+    @apply px-0;
+  }
+  .hello h1, .btn-nav {
+    @apply text-sm;
+  }
+  #order-table tbody {
+    max-height: calc(40vh) !important;
+  }
+}
+
+@media (min-width: 953px) {
+  .first-bar {
+    @apply justify-between flex;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1170px) {
+  .second-bar-child:first-child {
+    @apply pb-2.5;
+  }
+  
+  #order-table tbody {
+    max-height: calc(100vh - 22rem);
+  }
+}
+
+@media (min-width: 1171px) {
+  .second-bar {
+    @apply justify-between flex;
   }
 }
 
@@ -329,4 +381,17 @@ input:focus{
     @apply pb-4;
   }
   
+  .search-x > button {
+    padding: 0;
+  }
+
+  @media (min-width: 412px) {
+    .search-bar img:first-child {
+      max-height: 15px;
+    }
+    .search-bar img:nth-child(2) {
+      max-height: 14.4px;
+      min-height: 14.4px;
+    }
+  }
 }
