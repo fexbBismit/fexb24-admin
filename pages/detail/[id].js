@@ -78,17 +78,17 @@ export default function Detail() {
     }
     
     return (
-        <div className=" pt-4 md:pt-8 px-4 md:px-12 lg:px-20 justify-center">
+        <div className=" pt-4 md:pt-8 px-4 md:px-12 lg:px-20 justify-center detail-wrapper">
             <div className="md:grid md:grid-cols-2 md:gap-9">
                 <div>
                     <div className="flex space-x-2 md:space-x-3">
                         <button className="bg-gray-dark rounded-xl flex items-center py-2 pr-3 px-2" onClick={() => router.back()}>
                             <img src="/assets/back.svg" alt="" className="h-6"/>
                         </button>
-                        <div className="bg-purple-lighter space-x-1 flex justify-between items-center w-full rounded-xl py-2 font-bold px-4">
+                        <div className="detail-title">
                             <div className="flex items-center w-full">
-                                <span className="md:pl-1 text-xs md:text-xl">Order ID</span>
-                                {!isEditing? <span className="text-purple text-xs md:text-xl pl-4">{order.orderId}</span> :
+                                <span className="md:pl-1 text-sm md:text-xl">Order ID</span>
+                                {!isEditing? <span className="text-purple text-sm md:text-xl pl-4">{order.orderId}</span> :
                                 <div className="pl-3 md:pl-4"><input type="text" id="edit-id" defaultValue={order.orderId} className="rounded-xl text-purple py-1 px-2 text-xs md:text-sm" /></div>}
                             </div>
                             {!isEditing? 
@@ -101,14 +101,14 @@ export default function Detail() {
                             }
                         </div>
                     </div>
-                    <div className="grid grid-cols-2 py-6 text-sm">
+                    <div className="flex justify-between md:grid md:grid-cols-2 py-5 md:py-6 text-xs md:text-sm">
                         <div>
                             <p className="font-bold text-gray-darker pb-2">Order Date</p>
                             <p><b>{formatDate(order.date)}</b></p>
                         </div>
                         <div>
                             <p className="font-bold text-gray-darker pb-2">Status</p>
-                            <button className={"btn-status relative cursor-pointer w-20 md:w-28 border flex items-center justify-between p-1 " + styleStatusBtn(order.status)} onClick={() => showDropdown()} onBlur={() => hideDropdown()}>
+                            <button className={"btn-status relative cursor-pointer w-24 md:w-28 border flex items-center justify-between p-4 " + styleStatusBtn(order.status)} onClick={() => showDropdown()} onBlur={() => hideDropdown()}>
                                 <p>{order.status}</p>
                                 <div className="mr-0 ml-auto">
                                     <svg className="hidden md:flex" width="13" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -119,7 +119,7 @@ export default function Detail() {
                                     </svg>
                                 </div>
                             </button>
-                            <div className="dropdown hidden w-20 md:w-28 -mt-8 status-drop" id="status-drop">
+                            <div className="dropdown hidden w-24 md:w-28 -mt-6 md:-mt-8 status-drop" id="status-drop">
                                 <ul>
                                     <li><div>{order.status === 'Paid' && <img src="/assets/check.svg" alt="" />}</div>Paid</li>
                                     <li><div>{order.status === 'Waiting' && <img src="/assets/check.svg" alt="" />}</div>Wait to Pay</li>

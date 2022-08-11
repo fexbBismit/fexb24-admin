@@ -252,7 +252,11 @@ input:focus{
   border-bottom: 1px solid #BCBCBC;
 }
 .ticket-table td {
-  @apply px-3.5 py-2;
+  @apply px-1 py-2;
+}
+
+.detail-title {
+  @apply bg-purple-lighter flex justify-between items-center w-full rounded-xl py-2 font-bold px-4;
 }
 
 @media (min-width: 768px) {
@@ -345,6 +349,51 @@ input:focus{
 
   #order-table {
     min-width: 1156px;
+  }
+
+  @media (max-width: 943px) {
+    .detail-title {
+      @apply px-2;
+    }
+    .detail-title span,
+    .detail-title h1 {
+      @apply text-sm;
+    }
+    .detail-title input {
+      @apply w-3/4 text-xs;
+    }
+    .detail-title > div div {
+      @apply pl-3 !important;
+    }
+    .detail-wrapper {
+      @apply px-5 !important;
+    }
+  
+    .total-box {
+      @apply w-8/12 !important;
+    }
+    
+  }  
+
+  @media (min-width:943px) and (max-width: 996px) {
+    .detail-title span,
+    .detail-title h1 {
+      @apply text-sm;
+    }
+  
+    .total-box {
+      @apply w-7/12 !important;
+    }
+    
+  }  
+  @media (min-width: 996px) and (max-width: 1070px) {
+    .detail-title span,
+    .detail-title h1 {
+      @apply text-base;
+    }
+    .total-box {
+      @apply w-8/12 !important;
+    }
   }
 }
 
