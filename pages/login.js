@@ -23,7 +23,7 @@ export default function Login() {
                             <input type={showPwd?"text":"password"} placeholder="Enter your password *" className="relative" />
                             <span className="pt-1.5 absolute">
                                 <button className="btn-pwd -ml-12" onClick={(e) => togglePwd(e)}>
-                                    <img src={showPwd? "assets/show-pwd.svg":"assets/hide-pwd.svg"} className="h-3.5" alt=""/>
+                                    <img src={showPwd? "/assets/show-pwd.svg":"/assets/hide-pwd.svg"} className="h-3.5" alt=""/>
                                 </button>
                             </span>
                         </form>

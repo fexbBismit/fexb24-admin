@@ -12,7 +12,7 @@ const FilterStatus = () => {
     return (
         <div>
             <div className="box-purple px-2.5 md:px-4 py-1 md:py-2 space-x-2 flex items-center">
-                <img src="assets/filter.svg" alt="" className="h-3" />
+                <img src="/assets/filter.svg" alt="" className="h-3" />
                 <span className="text-2xs md:text-sm font-semibold md:font-medium">Filter Status</span>
                 <div className="relative">
                     <button className="border-1 border-purple bg-white rounded-xl px-2 md:px-3 font-semibold text-2xs flex items-center w-20 md:w-24" onClick={() => showDropdown()} onBlur={() => hideDropdown()}>
@@ -28,12 +28,12 @@ const FilterStatus = () => {
                     </button>
                     
                     <div className="dropdown hidden w-20 md:w-24 -mt-6" id="status-drop">
-                    <ul className="cursor-pointer">
-                        <li className="flex items-start py-1 px-1 md:px-2 hover:bg-drop-light choice-first transition duration-200"><div className="w-4 mt-1 mr-0.5"><img src="assets/check.svg" alt="" className="h-2.5"/></div>Any</li>
-                        <li className="flex items-start py-1 px-1 md:px-2 hover:bg-drop-light transition duration-200"><div className="w-4 mt-1 mr-0.5"><img src="assets/check.svg" alt="" className="h-2.5"/></div>Wait to Pay</li>
-                        <li className="flex items-start py-1 px-1 md:px-2 hover:bg-drop-light transition duration-200"><div className="w-4 mt-1 mr-0.5"><img src="assets/check.svg" alt="" className="h-2.5"/></div>Paid</li>
-                        <li className="flex items-start py-1 px-1 md:px-2 hover:bg-drop-light choice-last transition duration-200"><div className="w-4 mt-1 mr-0.5"><img src="assets/check.svg" alt="" className="h-2.5"/></div>Cancelled</li>
-                    </ul>
+                        <ul>
+                            <li><div><img src="/assets/check.svg" alt="" /></div>Any</li>
+                            <li><div><img src="/assets/check.svg" alt="" /></div>Wait to Pay</li>
+                            <li><div><img src="/assets/check.svg" alt="" /></div>Paid</li>
+                            <li><div><img src="/assets/check.svg" alt=""/></div>Cancelled</li>
+                        </ul>
                 </div>
                 </div>
                 

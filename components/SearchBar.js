@@ -30,19 +30,19 @@ const SearchBar = () => {
                         </div>
                     </button>
                     <div className="dropdown hidden w-20 md:w-32 -ml-0.5 search-drop" id="search-drop">
-                    <ul className="cursor-pointer">
-                        <li className="flex items-start py-1 px-1 md:px-2 hover:bg-drop-light choice-first transition duration-200"><div className="w-4 mt-1 mr-0.5"><img src="assets/check.svg" alt="" className="h-2.5"/></div>By ID Order</li>
-                        <li className="flex items-start py-1 px-1 md:px-2 hover:bg-drop-light choice-last transition duration-200"><div className="w-4 mt-1 mr-0.5"><img src="assets/check.svg" alt="" className="h-2.5"/></div>By Customer</li>
-                    </ul>
+                        <ul>
+                            <li><div><img src="/assets/check.svg" alt="" /></div>By ID Order</li>
+                            <li><div><img src="/assets/check.svg" alt="" /></div>By Customer</li>
+                        </ul>
                     </div>
                 </div>
                 <div className="bg-white flex items-center px-1 md:px-3">
-                    <img src="assets/search.svg" alt="" className="md:h-auto"/>
+                    <img src="/assets/search.svg" alt="" className="md:h-auto"/>
                 </div>
                 <input type="text" className=" md:py-2 text-2xs md:text-sm w-28 md:w-32" id="search" placeholder="Search Orders"  />
                 <div className="bg-white flex items-center px-1 md:px-2 search-x">
                     <button className="rounded-full p-1 md:p-1.5" onClick={(e) => clearInput(e)}>
-                        <img src="assets/cross.svg" className="md:h-auto" alt=""/>
+                        <img src="/assets/cross.svg" className="md:h-auto" alt=""/>
                     </button>
                 </div>
             </div>

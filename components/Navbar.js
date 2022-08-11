@@ -8,19 +8,19 @@ const Navbar = () => {
     }
 
     return (
-        <div className="page">
+        <div>
         <nav className="bg-purple shadow-md text-white md:h-20" id="navbar">
             <div className="px-6 md:px-14 mx-auto">
                 <div className="flex justify-between">
                     <div className="flex space-x-7">
                         <div className="flex items-center py-4">
-                            <img src={'assets/logo.png'} alt="" objectFit="cover" className="md:h-12 h-8 mr-2"/>
+                            <img src={'/assets/logo.png'} alt="" objectFit="cover" className="md:h-12 h-8 mr-2"/>
                         </div>                        
                     </div>
 
                     <div className="btn-nav hidden md:flex items-center space-x-4">
-                        <a href="https://fexb.netlify.app/"><button><img src={"assets/home.svg"} className="float-left pr-1 mt-0.5 h-4" alt="" />Home</button></a>
-                        <a href="/order-details"><button disabled><img src={"assets/cart.svg"} className="float-left pr-1 mt-0.5 h-4" alt="" />Order Details</button></a>
+                        <a href="https://fexb.netlify.app/"><button><img src={"/assets/home.svg"} className="float-left pr-1 mt-0.5 h-4" alt="" />Home</button></a>
+                        <a href="/order-details"><button disabled><img src={"/assets/cart.svg"} className="float-left pr-1 mt-0.5 h-4" alt="" />Order Details</button></a>
                     </div>
                     
                     <div className="hidden md:flex items-center">
@@ -43,7 +43,7 @@ const Navbar = () => {
                                     <Menu.Item>
                                     {({ active }) => (
                                         <a className={`${active}`} href="/">
-                                            <div className="origin-top-right font-medium absolute right-0 mt-6 w-32 rounded-xl shadow-lg bg-white hover:bg-gray" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1" id="tri-drop">
+                                            <div className="origin-top-right font-medium absolute right-0 mt-6 w-32 rounded-xl shadow-lg bg-white hover:bg-gray z-10" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1" id="tri-drop">
                                                 <div className="py-1" role="none">
                                                     <button className="text-red block w-full text-left px-4 py-2 text-sm" tabindex="-1" role="menuitem"><h2>Sign Out</h2></button>
                                                 </div>

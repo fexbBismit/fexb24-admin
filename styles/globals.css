@@ -108,18 +108,28 @@ h3 {
   transform: scaleX(-1);
 }
 
-.choice-first {
+.dropdown {
+  @apply absolute bg-drop-lighter border-1 border-drop rounded-xl text-2xs font-semibold text-drop-dark;
+}
+.dropdown ul {
+  @apply cursor-pointer;
+}
+.dropdown li {
+  @apply flex items-start py-1 px-1 md:px-2 hover:bg-drop-light transition duration-200;
+}
+.dropdown li:first-child {
   border-top-right-radius: 0.75rem;
   border-top-left-radius: 0.75rem;
 }
-
-.choice-last {
+.dropdown li:last-child {
   border-bottom-right-radius: 0.75rem;
   border-bottom-left-radius: 0.75rem;
 }
-
-.dropdown {
-  @apply absolute bg-drop-lighter border-1 border-drop rounded-xl text-2xs font-semibold text-drop-dark;
+.dropdown li > div {
+  @apply w-4 mt-1 mr-0.5;
+}
+.dropdown li img {
+  @apply h-2.5;
 }
 
 .search-x {
@@ -233,6 +243,16 @@ input:focus{
 .page {
   min-width: 400px;
   overflow-x: auto;
+}
+
+.ticket-table {
+  @apply w-full;
+}
+.ticket-table thead {
+  border-bottom: 1px solid #BCBCBC;
+}
+.ticket-table td {
+  @apply px-3.5 py-2;
 }
 
 @media (min-width: 768px) {

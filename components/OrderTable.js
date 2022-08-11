@@ -1,9 +1,11 @@
+import Link from "next/link";
 import React from "react";
 
 const OrderTable = () => {
     const orders = [
         {
-            'id':'400CBDF7EF',
+            'id':1,
+            'orderId':'400CBDF7EF',
             'status': 'Paid',
             'date': new Date('2022-01-28T23:50:21.817Z'),
             'customer': 'Maria Lietania Sampoerna',
@@ -13,7 +15,8 @@ const OrderTable = () => {
             'total': 10200000,
         },
         {
-            'id':'400CBDF7EG',
+            'id':2,
+            'orderId':'400CBDF7EG',
             'status': 'Cancelled',
             'date': '2022-01-28T23:50:21.817Z',
             'customer': 'Maria Lietania Sampoerna',
@@ -23,7 +26,8 @@ const OrderTable = () => {
             'total': 10200000,
         },
         {
-            'id':'400CBDF7EG',
+            'id':3,
+            'orderId':'400CBDF7EG',
             'status': 'Waiting',
             'date': '2022-01-28T23:50:21.817Z',
             'customer': 'Maria Lietania Sampoerna',
@@ -33,7 +37,8 @@ const OrderTable = () => {
             'total': 10200000,
         },
         {
-            'id':'400CBDF7EF',
+            'id':4,
+            'orderId':'400CBDF7EF',
             'status': 'Paid',
             'date': new Date('2022-01-28T23:50:21.817Z'),
             'customer': 'Maria Lietania Sampoerna',
@@ -43,7 +48,8 @@ const OrderTable = () => {
             'total': 10200000,
         },
         {
-            'id':'400CBDF7EG',
+            'id':5,
+            'orderId':'400CBDF7EG',
             'status': 'Cancelled',
             'date': '2022-01-28T23:50:21.817Z',
             'customer': 'Maria Lietania Sampoerna',
@@ -53,7 +59,8 @@ const OrderTable = () => {
             'total': 10200000,
         },
         {
-            'id':'400CBDF7EG',
+            'id':6,
+            'orderId':'400CBDF7EG',
             'status': 'Waiting',
             'date': '2022-01-28T23:50:21.817Z',
             'customer': 'Maria Lietania Sampoerna',
@@ -94,7 +101,7 @@ const OrderTable = () => {
         <div className="table-wrapper">
             <table className=" text-2xs md:text-sm w-full header-fixed" id="order-table">
                 <thead className="bg-gray-light">
-                    <tr className="text-purple" valign="middle">
+                    <tr className="text-purple">
                         <th className=""></th>
                         <th className="">ORDER ID</th>
                         <th className="">STATUS</th>
@@ -116,7 +123,7 @@ const OrderTable = () => {
                                 <span className="checkmark"></span>
                             </label>
                             </td>
-                            <td className="font-bold">{order.id}</td>
+                            <td className="font-bold">{order.orderId}</td>
                             <td>
                                 {order.status === 'Paid' && <div className="btn-status border-paid-out text-paid bg-paid-in w-full">{order.status}</div>}
                                 
@@ -130,14 +137,15 @@ const OrderTable = () => {
                             <td className="hide-mobile">{order.gateway}</td>
                             <td className="hide-mobile">Rp {order.discount.toLocaleString('id')}</td>
                             <td className="font-bold hide-mobile">Rp {order.total.toLocaleString('id')}</td>
-                            <td><button className="btn-lavender rounded md:rounded-3xl px-1 md:px-3 py-1 md:py-2 md:w-24 text-xs font-semibold">
+                            <td><Link href={'/detail/' + order.id}><button className="btn-lavender rounded md:rounded-3xl px-1 md:px-3 py-1 md:py-2 md:w-24 text-xs font-semibold">
                                 <span className="hide-mobile">See Details</span>
                                 <div className="md:hidden">
                                     <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M12.125 5.875V0.875H7.125L9.18125 2.93125L2.93125 9.18125L0.875 7.125V12.125H5.875L3.81875 10.0687L10.0687 3.81875L12.125 5.875Z" fill="white"/>
                                     </svg>
                                 </div>
-                                </button></td>
+                                </button></Link>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
