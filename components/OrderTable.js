@@ -1,101 +1,8 @@
 import Link from "next/link";
 import React from "react";
+import formatDate from "../util/formatDate";
 
-const OrderTable = () => {
-    const orders = [
-        {
-            'id':1,
-            'orderId':'400CBDF7EF',
-            'status': 'Paid',
-            'date': new Date('2022-01-28T23:50:21.817Z'),
-            'customer': 'Maria Lietania Sampoerna',
-            'ticket': 100,
-            'gateway': 'Virtual Account',
-            'discount': 25000,
-            'total': 10200000,
-        },
-        {
-            'id':2,
-            'orderId':'400CBDF7EG',
-            'status': 'Cancelled',
-            'date': '2022-01-28T23:50:21.817Z',
-            'customer': 'Maria Lietania Sampoerna',
-            'ticket': 100,
-            'gateway': 'Virtual Account',
-            'discount': 25000,
-            'total': 10200000,
-        },
-        {
-            'id':3,
-            'orderId':'400CBDF7EG',
-            'status': 'Waiting',
-            'date': '2022-01-28T23:50:21.817Z',
-            'customer': 'Maria Lietania Sampoerna',
-            'ticket': 100,
-            'gateway': 'Virtual Account',
-            'discount': 25000,
-            'total': 10200000,
-        },
-        {
-            'id':4,
-            'orderId':'400CBDF7EF',
-            'status': 'Paid',
-            'date': new Date('2022-01-28T23:50:21.817Z'),
-            'customer': 'Maria Lietania Sampoerna',
-            'ticket': 100,
-            'gateway': 'Virtual Account',
-            'discount': 25000,
-            'total': 10200000,
-        },
-        {
-            'id':5,
-            'orderId':'400CBDF7EG',
-            'status': 'Cancelled',
-            'date': '2022-01-28T23:50:21.817Z',
-            'customer': 'Maria Lietania Sampoerna',
-            'ticket': 100,
-            'gateway': 'Virtual Account',
-            'discount': 25000,
-            'total': 10200000,
-        },
-        {
-            'id':6,
-            'orderId':'400CBDF7EG',
-            'status': 'Waiting',
-            'date': '2022-01-28T23:50:21.817Z',
-            'customer': 'Maria Lietania Sampoerna',
-            'ticket': 100,
-            'gateway': 'Virtual Account',
-            'discount': 25000,
-            'total': 10200000,
-        },
-    ]
-
-    function formatMin10(num) {
-        if (num < 10) {
-            return '0' + num;
-        } else {
-            return num;
-        }
-    }
-
-    function formatAMPM(date) {
-        let hours = date.getHours();
-        let minutes = date.getMinutes();    
-        const ampm = hours >= 12 ? 'pm' : 'am';
-      
-        hours %= 12;
-        hours = hours || 12;    
-        minutes = minutes < 10 ? `0${minutes}` : minutes;
-      
-        const strTime = `${hours}.${minutes} ${ampm}`;
-      
-        return strTime;
-    }
-
-    function formatDate(date) {
-        return formatMin10(date.getDate()) + '/' + formatMin10(date.getMonth()) + '/' + date.getFullYear() + ' ' + formatAMPM(date);
-    }
+const OrderTable = ( {orders, filter} ) => {
 
     return (
         <div className="table-wrapper">
@@ -116,6 +23,8 @@ const OrderTable = () => {
                 </thead>
                 <tbody className="border border-gray">
                     {orders.map(order => (
+                        <>
+                        {(filter === null || filter === order.status) &&
                         <tr>
                             <td className="w-6 md:w-9 ">
                             <label className="container-check">
@@ -131,7 +40,7 @@ const OrderTable = () => {
                                 
                                 {order.status === 'Cancelled' && <div className="btn-status border-cancel text-cancel bg-cancel-in w-full">{order.status}</div>}
                             </td>
-                            <td className="md:w-24">{formatDate(new Date())}</td>
+                            <td className="md:w-24">{formatDate(order.date)}</td>
                             <td className="font-bold">{order.customer}</td>
                             <td className="font-bold hide-mobile w-36"><p><span className="text-purple">FExB FEBUI 2022</span> x {order.ticket}</p></td>
                             <td className="hide-mobile">{order.gateway}</td>
@@ -146,7 +55,7 @@ const OrderTable = () => {
                                 </div>
                                 </button></Link>
                             </td>
-                        </tr>
+                        </tr>}</>
                     ))}
                 </tbody>
             </table>

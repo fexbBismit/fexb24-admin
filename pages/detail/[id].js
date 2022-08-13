@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react"
 import { useRouter } from 'next/router'
 import BuyerInfo from "../../components/BuyerInfo";
 import Tickets from "../../components/Tickets";
+import { Menu, Transition } from '@headlessui/react'
+import formatDate from "../../util/formatDate";
 
 export default function Detail() {
     const router = useRouter();
@@ -42,40 +44,6 @@ export default function Detail() {
             'discount': 25000,
             'total': 10200000,
         }
-
-
-    function formatMin10(num) {
-        if (num < 10) {
-            return '0' + num;
-        } else {
-            return num;
-        }
-    }
-
-    function formatAMPM(date) {
-        let hours = date.getHours();
-        let minutes = date.getMinutes();    
-        const ampm = hours >= 12 ? 'pm' : 'am';
-        
-        hours %= 12;
-        hours = hours || 12;    
-        minutes = minutes < 10 ? `0${minutes}` : minutes;
-        
-        const strTime = `${hours}.${minutes} ${ampm}`;
-        
-        return strTime;
-    }
-
-    function formatDate(date) {
-        return formatMin10(date.getDate()) + '/' + formatMin10(date.getMonth()) + '/' + date.getFullYear() + ' ' + formatAMPM(date);
-    }
-
-    function showDropdown() {
-        document.getElementById("status-drop").classList.remove('hidden');
-    }
-    function hideDropdown() {
-        document.getElementById("status-drop").classList.add('hidden');
-    }
     
     return (
         <div className=" pt-4 md:pt-8 px-4 md:px-12 lg:px-20 justify-center detail-wrapper">
@@ -108,24 +76,45 @@ export default function Detail() {
                         </div>
                         <div>
                             <p className="font-bold text-gray-darker pb-2">Status</p>
-                            <button className={"btn-status relative cursor-pointer w-24 md:w-28 border flex items-center justify-between p-4 " + styleStatusBtn(order.status)} onClick={() => showDropdown()} onBlur={() => hideDropdown()}>
-                                <p>{order.status}</p>
-                                <div className="mr-0 ml-auto">
-                                    <svg className="hidden md:flex" width="13" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M9.4625 0.401227L5.5825 4.11253L1.7025 0.401227C1.3125 0.0281838 0.6825 0.0281838 0.2925 0.401227C-0.0975 0.774271 -0.0975 1.37688 0.2925 1.74992L4.8825 6.14036C5.2725 6.5134 5.9025 6.5134 6.2925 6.14036L10.8825 1.74992C11.2725 1.37688 11.2725 0.774271 10.8825 0.401227C10.4925 0.037749 9.8525 0.0281838 9.4625 0.401227Z" fill="currentColor"/>
-                                    </svg>
-                                    <svg className="md:hidden" width="13" height="5" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M9.4625 0.401227L5.5825 4.11253L1.7025 0.401227C1.3125 0.0281838 0.6825 0.0281838 0.2925 0.401227C-0.0975 0.774271 -0.0975 1.37688 0.2925 1.74992L4.8825 6.14036C5.2725 6.5134 5.9025 6.5134 6.2925 6.14036L10.8825 1.74992C11.2725 1.37688 11.2725 0.774271 10.8825 0.401227C10.4925 0.037749 9.8525 0.0281838 9.4625 0.401227Z" fill="currentColor"/>
-                                    </svg>
-                                </div>
-                            </button>
-                            <div className="dropdown hidden w-24 md:w-28 -mt-6 md:-mt-8 status-drop" id="status-drop">
-                                <ul>
-                                    <li><div>{order.status === 'Paid' && <img src="/assets/check.svg" alt="" />}</div>Paid</li>
-                                    <li><div>{order.status === 'Waiting' && <img src="/assets/check.svg" alt="" />}</div>Wait to Pay</li>
-                                    <li><div>{order.status === 'Cancelled' && <img src="/assets/check.svg" alt="" />}</div>Cancelled</li>
-                                </ul>
-                            </div>
+                            <Menu>
+                                <Menu.Button>
+                                    <div className={"btn-status relative cursor-pointer w-24 md:w-28 border flex items-center justify-between p-4 " + styleStatusBtn(order.status)}>
+                                        <p>{order.status}</p>
+                                        <div className="mr-0 ml-auto">
+                                            <svg className="hidden md:flex" width="13" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M9.4625 0.401227L5.5825 4.11253L1.7025 0.401227C1.3125 0.0281838 0.6825 0.0281838 0.2925 0.401227C-0.0975 0.774271 -0.0975 1.37688 0.2925 1.74992L4.8825 6.14036C5.2725 6.5134 5.9025 6.5134 6.2925 6.14036L10.8825 1.74992C11.2725 1.37688 11.2725 0.774271 10.8825 0.401227C10.4925 0.037749 9.8525 0.0281838 9.4625 0.401227Z" fill="currentColor"/>
+                                            </svg>
+                                            <svg className="md:hidden" width="13" height="5" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M9.4625 0.401227L5.5825 4.11253L1.7025 0.401227C1.3125 0.0281838 0.6825 0.0281838 0.2925 0.401227C-0.0975 0.774271 -0.0975 1.37688 0.2925 1.74992L4.8825 6.14036C5.2725 6.5134 5.9025 6.5134 6.2925 6.14036L10.8825 1.74992C11.2725 1.37688 11.2725 0.774271 10.8825 0.401227C10.4925 0.037749 9.8525 0.0281838 9.4625 0.401227Z" fill="currentColor"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </Menu.Button>
+                                <Transition
+                                    enter="transition duration-100 ease-out"
+                                    enterFrom="transform scale-95 opacity-0"
+                                    enterTo="transform scale-100 opacity-100"
+                                    leave="transition duration-75 ease-out"
+                                    leaveFrom="transform scale-100 opacity-100"
+                                    leaveTo="transform scale-95 opacity-0"
+                                >
+                                    <Menu.Items>
+                                        <Menu.Item>
+                                        {({ active }) => (
+                                            <a className={`${active}`}>
+                                                <div className="dropdown w-24 md:w-28 -mt-6 md:-mt-8 status-drop" id="status-drop">
+                                                    <ul>
+                                                        <li><div>{order.status === 'Paid' && <img src="/assets/check.svg" alt="" />}</div>Paid</li>
+                                                        <li><div>{order.status === 'Waiting' && <img src="/assets/check.svg" alt="" />}</div>Wait to Pay</li>
+                                                        <li><div>{order.status === 'Cancelled' && <img src="/assets/check.svg" alt="" />}</div>Cancelled</li>
+                                                    </ul>
+                                                </div>
+                                            </a>
+                                        )}
+                                        </Menu.Item>
+                                    </Menu.Items>
+                                </Transition>
+                            </Menu>
                         </div>
                     </div>
                     <div className="hide-mobile">
