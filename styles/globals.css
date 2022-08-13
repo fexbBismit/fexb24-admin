@@ -240,11 +240,6 @@ input:focus{
   overflow-x: auto;
 }
 
-.page {
-  min-width: 400px;
-  overflow-x: auto;
-}
-
 .ticket-table {
   @apply w-full;
 }

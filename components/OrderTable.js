@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 import formatDate from "../util/formatDate";
 
-const OrderTable = ( {orders, filter} ) => {
+const OrderTable = ( {orders, filter, searchBy, searchInput} ) => {
 
     return (
         <div className="table-wrapper">
@@ -24,7 +24,7 @@ const OrderTable = ( {orders, filter} ) => {
                 <tbody className="border border-gray">
                     {orders.map(order => (
                         <>
-                        {(filter === null || filter === order.status) &&
+                        {(filter === null || filter === order.status) && ((searchBy === null && order.orderId.toLowerCase().includes(searchInput.toLowerCase())) || (searchBy !== null && order.customer.toLowerCase().includes(searchInput.toLowerCase()))) &&
                         <tr>
                             <td className="w-6 md:w-9 ">
                             <label className="container-check">

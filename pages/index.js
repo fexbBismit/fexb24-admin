@@ -12,7 +12,8 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [orders, setOrders] = useState([]);
   const [filter, setFilter] = useState(null);
-
+  const [searchBy, setSearchBy] = useState(null);
+  const [searchInput, setSearchInput] = useState('');
   
   const ordersDummy = [
         {
@@ -103,7 +104,7 @@ export default function Home() {
 
   return (
     <div>{!loading &&
-        <div className="px-3 sm:px-10 md:px-14 page" >
+        <div className="px-3 sm:px-10 md:px-14" >
         <div className=" mx-auto first-bar">
             <div className="flex justify-center items-center pt-5 md:pt-0 first-bar-child">
                 <div className="font-bold text-purple flex items-center divide-x-2">
@@ -134,7 +135,7 @@ export default function Home() {
                 <FilterStatus query={router.query} setFilter={setFilter} />
             </div>
             <div className="flex justify-center space-x-1.5 md:space-x-2.5 text-2xs md:text-sm pt-3 md:pt-0 second-bar-child">
-                <SearchBar />
+                <SearchBar setSearchBy={setSearchBy} searchBy={searchBy} setSearchInput={setSearchInput} />
                 <button className="btn-small border-none rounded-2xl md:rounded-xl font-semibold md:font-medium flex items-center space-x-1 md:space-x-2 px-2 pr-2.5 md:px-3">
                     <img src="/assets/export.svg" alt="" className="h-3 md:h-4" /><p>Export</p>
                 </button>
@@ -144,7 +145,7 @@ export default function Home() {
             </div>
         </div>
         <div>
-            <OrderTable orders={orders} filter={filter} />
+            <OrderTable orders={orders} filter={filter} searchBy={searchBy} searchInput={searchInput} />
         </div>
     </div>
     }
