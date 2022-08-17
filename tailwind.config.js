@@ -47,6 +47,10 @@ module.exports = {
           dark: '#ECECEC',
           DEFAULT: '#EFEFEF',
           light: '#F6F6F6'
+        },
+        modal: {
+          gray: '#EDF2F7',
+          red: '#E53E3E'
         }
       }
     },

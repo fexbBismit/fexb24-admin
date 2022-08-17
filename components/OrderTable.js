@@ -2,7 +2,17 @@ import Link from "next/link";
 import React from "react";
 import formatDate from "../util/formatDate";
 
-const OrderTable = ( {orders, filter, searchBy, searchInput} ) => {
+const OrderTable = ( {orders, searchBy, searchInput, checkedList, setCheckedList} ) => {
+
+    function handleCheck(e, id) {
+        var checked = checkedList
+        if (e.target.checked) {
+            checked.push(id)
+        } else {
+            checked.splice(checked.findIndex((obj) => obj === id))
+        }
+        setCheckedList(checked)
+    }
 
     return (
         <div className="table-wrapper">
@@ -24,13 +34,13 @@ const OrderTable = ( {orders, filter, searchBy, searchInput} ) => {
                 <tbody className="border border-gray">
                     {orders.map(order => (
                         <>
-                        {(filter === null || filter === order.status) && ((searchBy === null && order.orderId.toLowerCase().includes(searchInput.toLowerCase())) || (searchBy !== null && order.customer.toLowerCase().includes(searchInput.toLowerCase()))) &&
+                        {((searchBy === null && order.orderId.toLowerCase().includes(searchInput.toLowerCase())) || (searchBy !== null && order.customer.toLowerCase().includes(searchInput.toLowerCase()))) &&
                         <tr>
                             <td className="w-6 md:w-9 ">
-                            <label className="container-check">
-                                <input type="checkbox" />
-                                <span className="checkmark"></span>
-                            </label>
+                                <label className="container-check">
+                                    <input type="checkbox" className="order-checkbox" id={order.id} onChange={(e) => handleCheck(e, order.id)} />
+                                    <span className="checkmark"></span>
+                                </label>
                             </td>
                             <td className="font-bold">{order.orderId}</td>
                             <td>

@@ -1,13 +1,16 @@
 import { useRouter } from "next/router";
 import React from "react";
 
-const Sorter = ({query, setOrders, orders}) => {
+const Sorter = ({ query, setOrders, orders, filteredOrders, setFilteredOrders, setIsOldest }) => {
     const router = useRouter()
     const sorted = (query?.sortBy? true: false)
 
     function sort() {
         var sorter = document.getElementById('sorter')
         var newQuery = query
+        if (filteredOrders) {
+            setFilteredOrders([...filteredOrders].reverse())
+        }
         setOrders([...orders].reverse())
         if (sorter.checked === true) {
             newQuery['sortBy'] = 'Oldest'
@@ -15,12 +18,14 @@ const Sorter = ({query, setOrders, orders}) => {
                 pathname: '/',
                 query: newQuery
             })
+            setIsOldest(true)
         } else {
             delete newQuery.sortBy;
             router.push({
                 pathname: '/',
                 query: newQuery
             })
+            setIsOldest(false)
         }
     }
     return (

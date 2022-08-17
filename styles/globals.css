@@ -90,7 +90,7 @@ h3 {
 }
 
 .btn-small:disabled, .btn-small[disabled] {
-  @apply bg-drop-lighter rounded-md;
+  @apply bg-drop-lighter rounded-md border-white;
 }
 
 .box-purple {

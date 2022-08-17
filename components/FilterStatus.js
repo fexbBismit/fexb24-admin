@@ -3,11 +3,13 @@ import React, { useEffect, useState } from "react";
 import { Menu, Transition } from '@headlessui/react'
 import Link from "next/link";
 
-const FilterStatus = ({ query, setFilter }) => {
+const FilterStatus = ({ query, orders, setOrders, setFilteredOrders, setCurrentPage, isOldest }) => {
     const router = useRouter()
     console.log(query)
     
     const handleStatus = (stat) => {
+        var orderList = orders
+        
         var newQuery = query
         if (stat !== 'Any') {
             newQuery['status'] = stat
@@ -15,16 +17,17 @@ const FilterStatus = ({ query, setFilter }) => {
                 pathname: '/',
                 query: newQuery
             })
-            setFilter(stat)
+            var filtered = orderList.filter((el) => el.status ===  stat)
+            setFilteredOrders(filtered)
         } else {
             delete newQuery.status;
             router.push({
                 pathname: '/',
                 query: newQuery
             })
-            setFilter(null)
+            setFilteredOrders()
         }
-        
+        setCurrentPage(1)
     }
 
     return (
