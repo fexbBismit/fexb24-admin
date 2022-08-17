@@ -1,16 +1,36 @@
 import React, { useState } from "react";
 import { Menu, Transition } from '@headlessui/react'
 
-const SearchBar = ( {searchBy, setSearchBy, setSearchInput} ) => {
+const SearchBar = ( { searchBy, setSearchBy, setSearchInput, orders, filteredOrders, setSearchResult, setCurrentPage } ) => {
 
     function changeSearchBy(by) {
         setSearchBy(by)
+        document.getElementById('search').value = '';
+        setSearchInput('')
+        setSearchResult()
+        setCurrentPage(1)
+    }
+
+    function handleInput(e) {
+        setSearchInput(e.target.value)
+        var input = e.target.value
+        var orderList = (filteredOrders? filteredOrders:orders)
+        var searchRes = orderList
+        if (searchBy) {
+            searchRes = orderList.filter((el) => el.listPembeli.some(pembeli => pembeli.nama.toLowerCase().includes(input.toLowerCase())))
+        } else {
+            searchRes = orderList.filter((el) => el.orderId.toLowerCase().includes(input.toLowerCase()))
+        }
+        setSearchResult(searchRes)
+        setCurrentPage(1)
     }
 
     function clearInput(e) {
         e.preventDefault();
         document.getElementById('search').value = '';
         setSearchInput('')
+        setSearchResult()
+        setCurrentPage(1)
     }
 
     return (
@@ -59,7 +79,7 @@ const SearchBar = ( {searchBy, setSearchBy, setSearchInput} ) => {
                 <div className="bg-white flex items-center px-1 md:px-3">
                     <img src="/assets/search.svg" alt="" className="md:h-auto"/>
                 </div>
-                <input type="text" className=" md:py-2 text-2xs md:text-sm w-28 md:w-32" id="search" placeholder="Search Orders" onKeyUp={(e) => setSearchInput(e.target.value)}  />
+                <input type="text" className=" md:py-2 text-2xs md:text-sm w-28 md:w-32" id="search" placeholder="Search Orders" onKeyUp={(e) => handleInput(e)}  />
                 <div className="bg-white flex items-center px-1 md:px-2 search-x">
                     <button className="rounded-full p-1 md:p-1.5" onClick={(e) => clearInput(e)}>
                         <img src="/assets/cross.svg" className="md:h-auto" alt=""/>

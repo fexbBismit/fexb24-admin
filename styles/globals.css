@@ -254,6 +254,10 @@ input:focus{
   @apply bg-purple-lighter flex justify-between items-center w-full rounded-xl py-2 font-bold px-4;
 }
 
+.buyer:first-child {
+  display: none;
+}
+
 @media (min-width: 768px) {
   .search-drop {
     margin-top: -2.36rem;
@@ -296,13 +300,17 @@ input:focus{
     float: left;
     display: flex;
     align-items: center;
+  }
+
+  .header-fixed > tbody > tr > td:not:nth-child(5),
+  .header-fixed > thead > tr > td:not:nth-child(6) {
     justify-content:center;
   }
 
   .header-fixed td:first-child,
   .header-fixed th:first-child {
     width: 2.5rem;
-    margin-right: 0.625rem;
+    margin-left: 0.625rem;
   }
   .header-fixed td:nth-child(5),
   .header-fixed th:nth-child(5),
@@ -314,7 +322,7 @@ input:focus{
   }
 
   .header-fixed td {
-    height: 4rem;
+    height: 5rem;
     vertical-align: middle;
   }
 

@@ -1,30 +1,20 @@
 import { useRouter } from "next/router";
 import React from "react";
 
-const Sorter = ({ query, setOrders, orders, filteredOrders, setFilteredOrders, setIsOldest }) => {
-    const router = useRouter()
-    const sorted = (query?.sortBy? true: false)
+const Sorter = ({ setOrders, orders, filteredOrders, setFilteredOrders, searchResult, setSearchResult, setIsOldest }) => {
 
     function sort() {
         var sorter = document.getElementById('sorter')
-        var newQuery = query
+        if (searchResult) {
+            setSearchResult([...searchResult].reverse())
+        }
         if (filteredOrders) {
             setFilteredOrders([...filteredOrders].reverse())
         }
         setOrders([...orders].reverse())
         if (sorter.checked === true) {
-            newQuery['sortBy'] = 'Oldest'
-            router.push({
-                pathname: '/',
-                query: newQuery
-            })
             setIsOldest(true)
         } else {
-            delete newQuery.sortBy;
-            router.push({
-                pathname: '/',
-                query: newQuery
-            })
             setIsOldest(false)
         }
     }
@@ -34,7 +24,7 @@ const Sorter = ({ query, setOrders, orders, filteredOrders, setFilteredOrders, s
                 <span className="text-2xs md:text-sm font-semibold md:font-medium">Sort by:</span>
                 <span className="text-2xs md:text-sm font-semibold">Newest</span>
                 <label for="sorter" className="inline-flex relative items-center cursor-pointer">
-                    <input type="checkbox" id="sorter" className="sr-only peer" defaultChecked={sorted} onClick={() => sort()}/>
+                    <input type="checkbox" id="sorter" className="sr-only peer" onClick={() => sort()}/>
                     <div className="w-8 h-4 bg-white rounded-full peer dark:bg-purple peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[0px] after:bg-white after:border-purple after:border-2 after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:after:border-purple"></div>
                 </label>
                 <span className="text-2xs md:text-sm font-semibold">Oldest</span>

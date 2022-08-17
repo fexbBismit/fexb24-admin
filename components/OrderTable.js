@@ -33,8 +33,6 @@ const OrderTable = ( {orders, searchBy, searchInput, checkedList, setCheckedList
                 </thead>
                 <tbody className="border border-gray">
                     {orders.map(order => (
-                        <>
-                        {((searchBy === null && order.orderId.toLowerCase().includes(searchInput.toLowerCase())) || (searchBy !== null && order.customer.toLowerCase().includes(searchInput.toLowerCase()))) &&
                         <tr>
                             <td className="w-6 md:w-9 ">
                                 <label className="container-check">
@@ -51,11 +49,11 @@ const OrderTable = ( {orders, searchBy, searchInput, checkedList, setCheckedList
                                 {order.status === 'Cancelled' && <div className="btn-status border-cancel text-cancel bg-cancel-in w-full">{order.status}</div>}
                             </td>
                             <td className="md:w-24">{formatDate(order.date)}</td>
-                            <td className="font-bold">{order.customer}</td>
+                            <td className="font-bold"><p>{order.listPembeli[0].nama}{order.listPembeli.length > 1 && <>, <p className="text-purple">and others</p></>}</p></td>
                             <td className="font-bold hide-mobile w-36"><p><span className="text-purple">FExB FEBUI 2022</span> x {order.ticket}</p></td>
                             <td className="hide-mobile">{order.gateway}</td>
                             <td className="hide-mobile">Rp {order.discount.toLocaleString('id')}</td>
-                            <td className="font-bold hide-mobile">Rp {order.total.toLocaleString('id')}</td>
+                            <td className="font-bold hide-mobile">Rp {order.totalPembayaran.toLocaleString('id')}</td>
                             <td><Link href={'/detail/' + order.id}><button className="btn-lavender rounded md:rounded-3xl px-1 md:px-3 py-1 md:py-2 md:w-24 text-xs font-semibold">
                                 <span className="hide-mobile">See Details</span>
                                 <div className="md:hidden">
@@ -65,7 +63,7 @@ const OrderTable = ( {orders, searchBy, searchInput, checkedList, setCheckedList
                                 </div>
                                 </button></Link>
                             </td>
-                        </tr>}</>
+                        </tr>
                     ))}
                 </tbody>
             </table>

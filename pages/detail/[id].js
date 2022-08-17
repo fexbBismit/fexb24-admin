@@ -32,17 +32,29 @@ export default function Detail() {
             'orderId':'400CBDF7EF',
             'status': 'Waiting',
             'date': new Date(),
-            'customer': {
-                'name': 'Maria Lietania Sampoerna',
-                'lineId': 'Maria22',
-                'number': '(+62) 81 234 567',
-                'email': 'MariaLietaniaSa@gmail.com',
-                'highschool': 'SMA Kartika Bangsa'
-            },
+            'listPembeli': [{
+                "id": 1,
+                "nama": "Nuel Lietania Sampoerna",
+                "email": "nuelgeming@gmail.com",
+                "idLine": "nuel123",
+                "nomorWA": "087741161102",
+                "highschool": "SMAN 49 Jakarta",
+                "orderId": 1,
+                "tiketId": 1
+            },{
+                "id": 2,
+                "nama": "Maria",
+                "email": "maria@gmail.com",
+                "idLine": "marl123",
+                "nomorWA": "087741161222",
+                "highschool": "SMAN 49 Jakarta",
+                "orderId": 1,
+                "tiketId": 1
+            }],
             'ticket': 100,
             'gateway': 'Virtual Account',
             'discount': 25000,
-            'total': 10200000,
+            'totalPembayaran': 10200000,
         }
     
     return (
@@ -122,7 +134,7 @@ export default function Detail() {
                     </div>
                 </div>
                 <div>
-                    <BuyerInfo customer={order.customer} />
+                    <BuyerInfo listPembeli={order.listPembeli} />
                 </div>
                 <div className="md:hidden">
                     <Tickets order={order} />

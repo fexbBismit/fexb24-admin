@@ -51,12 +51,12 @@ const PopupDelete = ({checkedList}) => {
                             as="h1"
                             className="text-2xl font-bold leading-6 text-center"
                         >
-                            Delete Order
+                            {checkedList.length > 0? <span>Delete Order</span>:<span>Please, check again!</span>}
                         </Dialog.Title>
                         <div className="mt-3">
                             {checkedList.length > 0? 
                             <p className="text-sm text-center">There will be {checkedList.length} orders deleted, you sure?</p>:
-                            <p className="text-sm text-center">No order selected, select first</p>
+                            <p className="text-sm text-center">You must select at least one order to be deleted</p>
                             }
                         </div>
                         <div className="mt-5 space-x-3 text-center">
@@ -82,7 +82,7 @@ const PopupDelete = ({checkedList}) => {
                             className="rounded-md bg-modal-gray font-bold px-4 py-3 text-xs hover:bg-blue-200"
                             onClick={closeModal}
                             >
-                            OK
+                            Okay
                             </button>}
                         </div>
                         </Dialog.Panel>
