@@ -1,6 +1,8 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import FilterStatus from "../components/FilterStatus"
+import LoadingScreen from "../components/LoadingScreen";
+import Navbar from "../components/Navbar";
 import OrderTable from "../components/OrderTable"
 import Pagination from "../components/Pagination"
 import PopupDelete from "../components/PopupDelete";
@@ -13,7 +15,6 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [orders, setOrders] = useState([]);
   const [statusCounts, setStatusCounts] = useState([])
-  const [isOldest, setIsOldest] = useState(false);
   const [filter, setFilter] = useState();
   const [searchBy, setSearchBy] = useState(null);
   const [searchInput, setSearchInput] = useState('');
@@ -532,7 +533,7 @@ export default function Home() {
             'date':  new Date('2011-10-10T14:48:00'),
             'listPembeli': [{
                 "id": 1,
-                "nama": "Maria",
+                "nama": "Mariaaaa sahdkah dasdkasn hdashdjksb",
                 "email": "nuelgeming@gmail.com",
                 "idLine": "nuel123",
                 "nomorWA": "087741161102",
@@ -572,7 +573,9 @@ export default function Home() {
     }, []);
 
   return (
-    <div>{!loading &&
+    <div>{loading?<div><LoadingScreen /></div>:
+        <>
+        <Navbar />
         <div className="px-3 sm:px-10 md:px-14" >
         <div className=" mx-auto first-bar">
             <div className="flex justify-center items-center pt-5 md:pt-0 first-bar-child">
@@ -605,7 +608,7 @@ export default function Home() {
         <hr className="border-2 border-drop-lighter" />
         <div className="mx-auto py-4 second-bar">
             <div className="flex justify-center space-x-1.5 md:space-x-2.5 text-2xs md:text-sm second-bar-child">
-                <Sorter orders={orders} setOrders={setOrders} filteredOrders={filteredOrders} setFilteredOrders={setFilteredOrders} searchResult={searchResult} setSearchResult={setSearchResult}  setIsOldest={setIsOldest} />
+                <Sorter orders={orders} setOrders={setOrders} filteredOrders={filteredOrders} setFilteredOrders={setFilteredOrders} searchResult={searchResult} setSearchResult={setSearchResult} />
                 <FilterStatus orders={orders} filter={filter} setFilter={setFilter} setFilteredOrders={setFilteredOrders} setCurrentPage={setCurrentPage} setSearchInput={setSearchInput} setSearchResult={setSearchResult} />
             </div>
             <div className="flex justify-center space-x-1.5 md:space-x-2.5 text-2xs md:text-sm pt-3 md:pt-0 second-bar-child">
@@ -619,7 +622,7 @@ export default function Home() {
         <div>
             <OrderTable orders={currentPosts} searchBy={searchBy} searchInput={searchInput} checkedList={checkedList} setCheckedList={setCheckedList} />
         </div>
-    </div>
+    </div></>
     }
   </div>
   )

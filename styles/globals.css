@@ -258,6 +258,56 @@ input:focus{
   display: none;
 }
 
+.loader {
+  --border-width: 10px;
+  
+  height: 15rem;
+  width: 15rem;
+  border-radius: 50%;
+  
+  /* 0.5px's are needed to avoid hard-stopping */
+  --mask: radial-gradient(
+    farthest-side, 
+    transparent calc(100% - var(--border-width) - 0.5px), 
+    #000 calc(100% - var(--border-width) + 0.5px)
+  );
+  -webkit-mask: var(--mask);
+          mask: var(--mask);
+          
+  /* we're using two half linear-gradient which is masked by the radial-gradient */
+  background: linear-gradient(to top, rgb(255, 255, 255), rgba(255, 255, 255, 0.5)) 100% 0/50% 100% no-repeat,
+              linear-gradient(rgba(255, 255, 255, 0.5) 50%, transparent 95%) 0 0/50% 100% no-repeat;
+  animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.load-img {
+  margin-top: -13rem;
+  transform:scale(1.5);
+  -ms-transform:scale(1.5); /* IE 9 */
+  -moz-transform:scale(1.5); /* Firefox */
+  -webkit-transform:scale(1.5); /* Safari and Chrome */
+  -o-transform:scale(1.5);
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 @media (min-width: 768px) {
   .search-drop {
     margin-top: -2.36rem;
@@ -311,6 +361,7 @@ input:focus{
   .header-fixed th:first-child {
     width: 2.5rem;
     margin-left: 0.625rem;
+    margin-right: 0.2rem;
   }
   .header-fixed td:nth-child(5),
   .header-fixed th:nth-child(5),
@@ -322,7 +373,7 @@ input:focus{
   }
 
   .header-fixed td {
-    height: 5rem;
+    min-height: 5rem;
     vertical-align: middle;
   }
 

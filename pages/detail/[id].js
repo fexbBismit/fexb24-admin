@@ -4,10 +4,15 @@ import BuyerInfo from "../../components/BuyerInfo";
 import Tickets from "../../components/Tickets";
 import { Menu, Transition } from '@headlessui/react'
 import formatDate from "../../util/formatDate";
+import Navbar from "../../components/Navbar";
+import LoadingScreen from "../../components/LoadingScreen";
 
 export default function Detail() {
     const router = useRouter();
     console.log(router.query.id);
+
+    const [loading, setLoading] = useState(true)
+    const [order, setOrder] = useState({})
     const [isEditing, setIsEditing] = useState(false);
 
 
@@ -26,7 +31,7 @@ export default function Detail() {
         console.log(inputId);
     }
 
-    const order = 
+    const orderDummy = 
         {
             'id':1,
             'orderId':'400CBDF7EF',
@@ -57,7 +62,19 @@ export default function Detail() {
             'totalPembayaran': 10200000,
         }
     
+    const fetchOrder = async () => {
+        setOrder(orderDummy);
+    }
+
+    useEffect(() => {
+        fetchOrder();
+        setLoading(false)
+    }, []);
+    
     return (
+        <div>{loading? <LoadingScreen />:
+        <>
+        <Navbar />
         <div className=" pt-4 md:pt-8 px-4 md:px-12 lg:px-20 justify-center detail-wrapper">
             <div className="md:grid md:grid-cols-2 md:gap-9">
                 <div>
@@ -140,6 +157,7 @@ export default function Detail() {
                     <Tickets order={order} />
                 </div>
             </div>
+        </div></>}
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React from "react";
 
-const Sorter = ({ setOrders, orders, filteredOrders, setFilteredOrders, searchResult, setSearchResult, setIsOldest }) => {
+const Sorter = ({ setOrders, orders, filteredOrders, setFilteredOrders, searchResult, setSearchResult }) => {
 
     function sort() {
         var sorter = document.getElementById('sorter')
@@ -12,11 +12,11 @@ const Sorter = ({ setOrders, orders, filteredOrders, setFilteredOrders, searchRe
             setFilteredOrders([...filteredOrders].reverse())
         }
         setOrders([...orders].reverse())
-        if (sorter.checked === true) {
-            setIsOldest(true)
-        } else {
-            setIsOldest(false)
-        }
+        // if (sorter.checked === true) {
+        //     setIsOldest(true)
+        // } else {
+        //     setIsOldest(false)
+        // }
     }
     return (
         <div>
