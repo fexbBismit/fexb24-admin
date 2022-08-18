@@ -18,6 +18,7 @@ module.exports = {
         lavender: {
           dark: '#8A37F5',
           DEFAULT: '#9747FF',
+          light: '#D0A3FF',
         },
         wait: {
           out: '#FFE45E',
@@ -51,7 +52,9 @@ module.exports = {
         modal: {
           gray: '#EDF2F7',
           red: '#E53E3E'
-        }
+        },
+        error: '#FF0000',
+        form: '#DBDCDC'
       }
     },
   },

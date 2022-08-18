@@ -8,6 +8,9 @@ export default function Login() {
         setShowPwd(show);
     }
 
+    const [loading, setLoading] = useState(false)
+    const [errorCode, setErrorCode] = useState()
+
     return (
         <div id="login">
             <div className="bg-[url('../public/assets/bg-login.png')] h-screen items-center flex justify-center p-2">
@@ -19,17 +22,18 @@ export default function Login() {
                     <h3>Welcome Back!</h3>
                     <div className="pt-9 pb-12">
                         <form className="space-y-4">
-                            <input type="text" placeholder="Enter your email *" />
-                            <input type={showPwd?"text":"password"} placeholder="Enter your password *" className="relative" />
+                            <input type="text" placeholder="Enter your email *" className={errorCode === 1 && "error"} />
+                            <input type={showPwd?"text":"password"} placeholder="Enter your password *" className={"relative" + (errorCode === 2 && ' error')} />
                             <span className="pt-1.5 absolute">
                                 <button className="btn-pwd -ml-12" onClick={(e) => togglePwd(e)}>
                                     <img src={showPwd? "/assets/show-pwd.svg":"/assets/hide-pwd.svg"} className="h-3.5" alt=""/>
                                 </button>
                             </span>
                         </form>
+                        {errorCode && <div className="text-error text-xs text-left pt-2 pl-12 absolute flex items-end"><p className="pr-1">Incorrect email or password.</p><img src='/assets/question-circle.svg' alt="" className="question" /></div>}
                     </div>
                     <div className="p-1.5">
-                        <button type="submit" className="btn-lavender text-sm rounded-2xl py-2 px-16 font-bold">Login</button>
+                        <button type="submit" disabled={loading} className="btn-lavender text-sm rounded-2xl py-2 px-16 font-bold disabled:bg-lavender-light">Login</button>
                     </div>
                 </div>
             </div>
