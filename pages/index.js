@@ -620,7 +620,7 @@ export default function Home() {
             </div>
         </div>
         <div>
-            <OrderTable orders={currentPosts} searchBy={searchBy} searchInput={searchInput} checkedList={checkedList} setCheckedList={setCheckedList} />
+            <OrderTable orders={currentPosts} checkedList={checkedList} setCheckedList={setCheckedList} setCurrentPage={setCurrentPage} />
         </div>
     </div></>
     }
