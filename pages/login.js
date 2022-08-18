@@ -1,4 +1,6 @@
 import React, { useState } from "react"
+import Alert from "../components/Alert";
+import slideInAlert from "../util/slideInAlert";
 
 export default function Login() {
     const [showPwd, setShowPwd] = useState(false);
@@ -10,9 +12,15 @@ export default function Login() {
 
     const [loading, setLoading] = useState(false)
     const [errorCode, setErrorCode] = useState()
+    const [message, setMessage] = useState(['Login successful!', 'Welcome, admin!'])
+
+    function handleLogin() {
+        slideInAlert()
+    }
 
     return (
         <div id="login">
+            <Alert message={message} />
             <div className="bg-[url('../public/assets/bg-login.png')] h-screen items-center flex justify-center p-2">
                 <div className="bg-white rounded-3xl max-w-md max-h-fit p-10 text-center shadow-2xl">
                     <div className="flex justify-center pb-6">
@@ -33,7 +41,7 @@ export default function Login() {
                         {errorCode && <div className="text-error text-xs text-left pt-2 pl-12 absolute flex items-end"><p className="pr-1">Incorrect email or password.</p><img src='/assets/question-circle.svg' alt="" className="question" /></div>}
                     </div>
                     <div className="p-1.5">
-                        <button type="submit" disabled={loading} className="btn-lavender text-sm rounded-2xl py-2 px-16 font-bold disabled:bg-lavender-light">Login</button>
+                        <button type="submit" disabled={loading} className="btn-lavender text-sm rounded-2xl py-2 px-16 font-bold disabled:bg-lavender-light" onClick={handleLogin}>Login</button>
                     </div>
                 </div>
             </div>

@@ -54,6 +54,7 @@ module.exports = {
           red: '#E53E3E'
         },
         error: '#FF0000',
+        success: '#07A84F',
         form: '#DBDCDC'
       }
     },
