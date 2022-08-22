@@ -316,14 +316,6 @@ input:focus{
   margin-bottom:0.1rem;
 }
 
-/* #alert {
-  -webkit-transition: opacity 3s ease-in-out;
-  -moz-transition: opacity 3s ease-in-out;
-  -ms-transition: opacity 3s ease-in-out;
-  -o-transition: opacity 3s ease-in-out;
-  opacity: 1;
-} */
-
 @media (min-width: 768px) {
   .search-drop {
     margin-top: -2.36rem;
@@ -418,7 +410,7 @@ input:focus{
   }
 
   #order-table {
-    min-width: 1156px;
+    min-width: 1168px;
   }
 
   @media (max-width: 943px) {

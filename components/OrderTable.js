@@ -14,10 +14,28 @@ const OrderTable = ( {orders, checkedList, setCheckedList, setCurrentPage} ) => 
         setCheckedList(checked)
     }
 
+    function saveCheckedState() {
+        document.querySelectorAll('input[type=checkbox]:checked').forEach(el => el.checked = false)
+        for (var i = 0; i < checkedList.length; i++) {
+            var id = checkedList[i]
+            var checked = document.getElementById(id)
+            if (checked) {
+                checked.checked  = true
+            }
+        }
+    }
+
+    function scrollToTop() {
+        const tbody = document.querySelectorAll('tbody')[0]
+        tbody.scrollTop = 0
+    }
+
     useEffect(() => {
         if (orders.length === 0) {
             setCurrentPage(0)
         }
+        scrollToTop()
+        saveCheckedState()
     }, [orders])
 
     return (

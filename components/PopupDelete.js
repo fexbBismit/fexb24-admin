@@ -55,7 +55,7 @@ const PopupDelete = ({checkedList}) => {
                         </Dialog.Title>
                         <div className="mt-3">
                             {checkedList.length > 0? 
-                            <p className="text-sm text-center">There will be {checkedList.length} orders deleted, you sure?</p>:
+                            <p className="text-sm text-center">There will be {checkedList.length} order{checkedList.length > 1 && <span>s</span>} deleted, you sure?</p>:
                             <p className="text-sm text-center">You must select at least one order to be deleted</p>
                             }
                         </div>
