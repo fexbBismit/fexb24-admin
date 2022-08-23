@@ -39,7 +39,7 @@ const SearchBar = ( { searchBy, setSearchBy, setSearchInput, orders, filteredOrd
                 <div className="rounded-2xl text-purple font-semibold bg-purple-lighter" >
                     <Menu>
                         <Menu.Button>
-                            <div className="relative cursor-pointer w-20 md:w-32 flex items-center px-0 md:px-2 py-2">
+                            <div className="relative cursor-pointer w-24 md:w-32 flex items-center px-2 py-2">
                                 <p>{searchBy === null? 'By ID Order':'By Customer'}</p>
                                 <div className="mr-0 ml-auto">
                                     <svg className="hidden md:flex" width="13" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -63,7 +63,7 @@ const SearchBar = ( { searchBy, setSearchBy, setSearchInput, orders, filteredOrd
                                 <Menu.Item>
                                 {({ active }) => (
                                     <a className={`${active}`}>
-                                        <div className="dropdown w-20 md:w-32 -ml-0.5 search-drop" id="search-drop">
+                                        <div className="dropdown w-24 md:w-32 -ml-0.5 search-drop" id="search-drop">
                                             <ul>
                                                 <li onClick={() => changeSearchBy(null)}><div>{searchBy === null && <img src="/assets/check.svg" alt="" />}</div>By ID Order</li>
                                                 <li onClick={() => changeSearchBy('Customer')}><div>{searchBy === 'Customer' && <img src="/assets/check.svg" alt="" />}</div>By Customer</li>

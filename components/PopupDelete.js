@@ -18,7 +18,7 @@ const PopupDelete = ({checkedList}) => {
 
     return (
         <>
-            <button className="btn-small border-none rounded-2xl md:rounded-xl font-semibold md:font-medium flex items-center space-x-1 md:space-x-2 px-2 pr-2.5 md:px-3" onClick={openModal}>
+            <button className="btn-small border-none rounded-2xl md:rounded-xl font-semibold md:font-medium flex items-center space-x-2 px-3" onClick={openModal}>
                 <img src="/assets/delete.svg" alt="" className="h-3 md:h-4" /><p>Delete</p>
             </button>
             <Transition appear show={isOpen} as={Fragment}>

@@ -613,9 +613,6 @@ export default function Home() {
             </div>
             <div className="flex justify-center space-x-1.5 md:space-x-2.5 text-2xs md:text-sm pt-3 md:pt-0 second-bar-child">
                 <SearchBar setSearchBy={setSearchBy} searchBy={searchBy} setSearchInput={setSearchInput} orders={orders} setOrders={setOrders} filteredOrders={filteredOrders} setSearchResult={setSearchResult} setCurrentPage={setCurrentPage} />
-                <button className="btn-small border-none rounded-2xl md:rounded-xl font-semibold md:font-medium flex items-center space-x-1 md:space-x-2 px-2 pr-2.5 md:px-3">
-                    <img src="/assets/export.svg" alt="" className="h-3 md:h-4" /><p>Export</p>
-                </button>
                 <PopupDelete checkedList={checkedList} />
             </div>
         </div>
