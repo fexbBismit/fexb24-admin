@@ -6,7 +6,7 @@ const BuyerInfo = ({ listPembeli }) => {
             <div className="detail-title">
                 <h1 className="text-sm md:text-xl pl-1">Buyer Information</h1>
             </div>
-            <div className="flex justify-center py-6">
+            <div className="flex justify-center py-6 buyers">
                 <div>
                     {listPembeli.map(pembeli => {
                         return (

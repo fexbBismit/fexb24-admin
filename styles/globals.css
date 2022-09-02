@@ -316,6 +316,10 @@ input:focus{
   margin-bottom:0.1rem;
 }
 
+.buyers {
+  overflow-x: auto;
+}
+
 @media (min-width: 768px) {
   .search-drop {
     margin-top: -2.36rem;
@@ -354,7 +358,7 @@ input:focus{
 
   .header-fixed > tbody > tr > td,
   .header-fixed > thead > tr > th {
-    width: 7.15rem;
+    width: 8rem;
     float: left;
     display: flex;
     align-items: center;
@@ -368,16 +372,30 @@ input:focus{
   .header-fixed td:first-child,
   .header-fixed th:first-child {
     width: 2.5rem;
-    margin-left: 0.625rem;
-    margin-right: 0.2rem;
+    margin-left: 0.9rem;
+    margin-right: 0.3rem;
   }
   .header-fixed td:nth-child(5),
-  .header-fixed th:nth-child(5),
+  .header-fixed th:nth-child(5) {
+    width: 12rem;
+  }
   .header-fixed td:nth-child(6),
-  .header-fixed th:nth-child(6),
+  .header-fixed th:nth-child(6){
+    width: 9.05rem;
+  }
+  
+  .header-fixed td:nth-child(8),
+  .header-fixed th:nth-child(8) {
+    width: 9.2rem;
+  }
+  
+  .header-fixed td:nth-child(3),
+  .header-fixed th:nth-child(3),
+  .header-fixed td:nth-child(4),
+  .header-fixed th:nth-child(4),
   .header-fixed td:nth-child(9),
   .header-fixed th:nth-child(9) {
-    width: 8.45rem;
+    width: 7.15rem;
   }
 
   .header-fixed td {

@@ -5,7 +5,6 @@ function slideInAlert() {
             fadeTarget.style.marginTop = '-6rem';
         }
         var mt = parseFloat(fadeTarget.style.marginTop.replace(/[^\d.-]/g, ''));
-        console.log(fadeTarget.style.marginTop)
         if (mt >= -6 && mt < 0.875 ) {
             mt += 0.06875
             fadeTarget.style.marginTop = mt + 'rem';

@@ -6,7 +6,7 @@ const LoadingScreen = () => {
             <div className="relative">
                 <p className="text-center text-white font-bold text-3xl">Loading...</p>
                 <br />
-                <div class="loader"></div>
+                <div className="loader"></div>
                 <img src='/assets/loading.svg' alt="" className="absolute load-img" />
             </div>
         </div>

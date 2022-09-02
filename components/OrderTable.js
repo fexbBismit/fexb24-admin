@@ -26,8 +26,15 @@ const OrderTable = ( {orders, checkedList, setCheckedList, setCurrentPage} ) => 
     }
 
     function scrollToTop() {
-        const tbody = document.querySelectorAll('tbody')[0]
-        tbody.scrollTop = 0
+        if (orders.length > 0) {
+            const tbody = document.querySelectorAll('tbody')[0]
+            tbody.scrollTop = 0
+        }
+    }
+
+    function getTicketFrequency(order) {
+        var namaTiket = order.listPembeli[0].tipeTiket.namaTiket;
+        return order.tiketFrequency[namaTiket]
     }
 
     useEffect(() => {
@@ -50,7 +57,6 @@ const OrderTable = ( {orders, checkedList, setCheckedList, setCurrentPage} ) => 
                             <th className="">ORDER DATE</th>
                             <th className="">CUSTOMER</th>
                             <th className="hide-mobile">TICKET(S)</th>
-                            <th className="hide-mobile">GATEWAY</th>
                             <th className="hide-mobile">DISCOUNT</th>
                             <th className="hide-mobile">TOTAL</th>
                             <th className=""></th>
@@ -65,7 +71,7 @@ const OrderTable = ( {orders, checkedList, setCheckedList, setCurrentPage} ) => 
                                         <span className="checkmark"></span>
                                     </label>
                                 </td>
-                                <td className="font-bold">{order.orderId}</td>
+                                <td className="font-bold">{order.id}</td>
                                 <td>
                                     {order.status === 'Paid' && <div className="btn-status border-paid-out text-paid bg-paid-in w-full">{order.status}</div>}
                                     
@@ -73,11 +79,10 @@ const OrderTable = ( {orders, checkedList, setCheckedList, setCurrentPage} ) => 
                                     
                                     {order.status === 'Cancelled' && <div className="btn-status border-cancel text-cancel bg-cancel-in w-full">{order.status}</div>}
                                 </td>
-                                <td className="md:w-24">{formatDate(order.date)}</td>
+                                <td className="md:w-24">{formatDate(new Date(order.createdAt))}</td>
                                 <td className="font-bold"><p>{order.listPembeli[0].nama}{order.listPembeli.length > 1 && <>, <p className="text-purple">and others</p></>}</p></td>
-                                <td className="font-bold hide-mobile w-36"><p><span className="text-purple">FExB FEBUI 2022</span> x {order.ticket}</p></td>
-                                <td className="hide-mobile">{order.gateway}</td>
-                                <td className="hide-mobile">Rp {order.discount.toLocaleString('id')}</td>
+                                <td className="font-bold hide-mobile w-36"><p><span className="text-purple">{order.listPembeli[0].tipeTiket.namaTiket}</span> x {getTicketFrequency(order)}{order.listPembeli.length > 1 && <>,<span className="text-purple"> ...</span></>}</p></td>
+                                <td className="hide-mobile">Rp {(order.totalPembayaran - order.pembayaranSetelahDiskon).toLocaleString('id')}</td>
                                 <td className="font-bold hide-mobile">Rp {order.totalPembayaran.toLocaleString('id')}</td>
                                 <td><Link href={'/detail/' + order.id}><button className="btn-lavender rounded md:rounded-3xl px-1 md:px-3 py-1 md:py-2 md:w-24 text-xs font-semibold">
                                     <span className="hide-mobile">See Details</span>

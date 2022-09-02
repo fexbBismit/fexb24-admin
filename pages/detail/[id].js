@@ -6,6 +6,9 @@ import { Menu, Transition } from '@headlessui/react'
 import formatDate from "../../util/formatDate";
 import Navbar from "../../components/Navbar";
 import LoadingScreen from "../../components/LoadingScreen";
+import Alert from "../../components/Alert";
+import slideInAlert from "../../util/slideInAlert";
+import axios from 'axios'
 
 export default function Detail() {
     const router = useRouter();
@@ -14,6 +17,10 @@ export default function Detail() {
     const [loading, setLoading] = useState(true)
     const [order, setOrder] = useState({})
     const [isEditing, setIsEditing] = useState(false);
+
+    const [success, setSuccess] = useState(false)
+    const [message, setMessage] = useState(['',''])
+    const [showAlert, setShowAlert] = useState()
 
 
     function styleStatusBtn(stat) {
@@ -62,18 +69,38 @@ export default function Detail() {
             'totalPembayaran': 10200000,
         }
     
-    const fetchOrder = async () => {
-        setOrder(orderDummy);
+    function redirectToLogin() {
+        router.push('/login')
+    }
+    
+    const fetchOrderDetail = async () => {
+        // setOrder(orderDummy)
+        try {
+            var fetchedOrder = await axios.get('https://fexb-dev.herokuapp.com/api/order/' + router.query.id)
+            console.log(fetchedOrder.data)
+            setOrder(fetchedOrder.data)
+            setLoading(false)
+        }
+        catch (err) {
+            console.log(err)
+            setMessage(['Fetch order detail failed', 'Error occured. Please try logging in again.'])
+            slideInAlert()
+            setShowAlert(true)
+            setTimeout(redirectToLogin, 2000)
+        }
     }
 
     useEffect(() => {
-        fetchOrder();
-        setLoading(false)
-    }, []);
+        if (router.isReady) {
+            fetchOrderDetail()
+        }
+    }, [router.isReady])
     
     return (
-        <div>{loading? <LoadingScreen />:
+        <div><Alert message={message} success={success} showAlert={showAlert} setShowAlert={setShowAlert} />
+    {loading?<div><LoadingScreen /></div>:
         <>
+        <Alert message={message} success={success} showAlert={showAlert} setShowAlert={setShowAlert} />
         <Navbar />
         <div className=" pt-4 md:pt-8 px-4 md:px-12 lg:px-20 justify-center detail-wrapper">
             <div className="md:grid md:grid-cols-2 md:gap-9">
@@ -101,7 +128,7 @@ export default function Detail() {
                     <div className="flex justify-between md:grid md:grid-cols-2 py-5 md:py-6 text-xs md:text-sm">
                         <div>
                             <p className="font-bold text-gray-darker pb-2">Order Date</p>
-                            <p><b>{formatDate(order.date)}</b></p>
+                            <p><b>{formatDate(new Date(order.createdAt))}</b></p>
                         </div>
                         <div>
                             <p className="font-bold text-gray-darker pb-2">Status</p>

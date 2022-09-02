@@ -1,12 +1,14 @@
 import '../styles/globals.css'
 import { useRouter } from "next/router";
-import Navbar from '../components/Navbar';
+import { AppWrapper } from '../util/AppContext';
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
 
   return (
-    <Component {...pageProps} />
+    <AppWrapper>
+      <Component {...pageProps} />
+    </AppWrapper>
   )
 }
 

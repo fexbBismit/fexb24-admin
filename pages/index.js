@@ -8,13 +8,16 @@ import Pagination from "../components/Pagination"
 import PopupDelete from "../components/PopupDelete";
 import SearchBar from "../components/SearchBar"
 import Sorter from "../components/Sorter"
+import Alert from "../components/Alert";
+import slideInAlert from "../util/slideInAlert";
+import axios from 'axios'
 
 export default function Home() {
   const router = useRouter()
 
   const [loading, setLoading] = useState(true);
   const [orders, setOrders] = useState([]);
-  const [statusCounts, setStatusCounts] = useState([])
+  const [statusCounts, setStatusCounts] = useState(['','','',''])
   const [filter, setFilter] = useState();
   const [searchBy, setSearchBy] = useState(null);
   const [searchInput, setSearchInput] = useState('');
@@ -40,13 +43,17 @@ export default function Home() {
       postLength = orders.length;
   }
   const paginate = pageNumber => setCurrentPage(pageNumber);
+
+  const [success, setSuccess] = useState(false)
+  const [message, setMessage] = useState(['',''])
+  const [showAlert, setShowAlert] = useState()
   
   const ordersDummy = [
         {
             'id':1,
             'orderId':'400CBDF7EF',
             'status': 'Paid',
-            'date': new Date(),
+            'createdAt': '2009-08-20T14:50:00',
             'listPembeli': [{
                 "id": 1,
                 "nama": "Nuel Lietania Sampoerna",
@@ -75,7 +82,7 @@ export default function Home() {
             'id':2,
             'orderId':'400CBDF7EG',
             'status': 'Cancelled',
-            'date': new Date(),
+            'createdAt': '2022-08-20T14:50:00',
             'listPembeli': [{
                 "id": 1,
                 "nama": "Nuel Lietania Sampoerna",
@@ -104,7 +111,7 @@ export default function Home() {
             'id':3,
             'orderId':'400CBDF7EG',
             'status': 'Waiting',
-            'date': new Date('2015-10-10T14:50:00'),
+            'createdAt': '2015-10-10T14:50:00',
             'listPembeli': [{
                 "id": 1,
                 "nama": "Nuel Lietania Sampoerna",
@@ -133,7 +140,7 @@ export default function Home() {
             'id':4,
             'orderId':'400CBDF7EF',
             'status': 'Paid',
-            'date': new Date('2015-10-10T14:48:00'),
+            'createdAt': '2015-10-10T14:48:00',
             'listPembeli': [{
                 "id": 1,
                 "nama": "Nuel Lietania Sampoerna",
@@ -162,7 +169,7 @@ export default function Home() {
             'id':5,
             'orderId':'400CBDF7EG',
             'status': 'Cancelled',
-            'date': new Date('2013-10-10T14:48:00'),
+            'createdAt': '2013-10-10T14:48:00',
             'listPembeli': [{
                 "id": 1,
                 "nama": "Nuel Lietania Sampoerna",
@@ -191,7 +198,7 @@ export default function Home() {
             'id':6,
             'orderId':'400CBDF7EG',
             'status': 'Waiting',
-            'date':  new Date('2011-10-10T14:48:00'),
+            'createdAt': '2011-10-10T14:48:00',
             'listPembeli': [{
                 "id": 1,
                 "nama": "Nuel Lietania Sampoerna",
@@ -220,7 +227,7 @@ export default function Home() {
             'id':7,
             'orderId':'400CBDF7EG',
             'status': 'Waiting',
-            'date':  new Date('2011-10-10T14:48:00'),
+            'createdAt': '2012-10-10T14:48:00',
             'listPembeli': [{
                 "id": 1,
                 "nama": "Nuel Lietania Sampoerna",
@@ -249,7 +256,7 @@ export default function Home() {
             'id':8,
             'orderId':'400CBDF7EG',
             'status': 'Waiting',
-            'date':  new Date('2011-10-10T14:48:00'),
+            'createdAt': '2011-10-10T14:48:00',
             'listPembeli': [{
                 "id": 1,
                 "nama": "Nuel Lietania Sampoerna",
@@ -269,7 +276,7 @@ export default function Home() {
             'id':9,
             'orderId':'400CBDF7EG',
             'status': 'Waiting',
-            'date':  new Date('2011-10-10T14:48:00'),
+            'createdAt': '2011-10-10T14:48:00',
             'listPembeli': [{
                 "id": 1,
                 "nama": "Nuel Lietania Sampoerna",
@@ -298,7 +305,7 @@ export default function Home() {
             'id':10,
             'orderId':'400CBDF7EG',
             'status': 'Waiting',
-            'date':  new Date('2011-10-10T14:48:00'),
+            'createdAt': '2011-10-10T14:48:00',
             'listPembeli': [{
                 "id": 1,
                 "nama": "Nuel Lietania Sampoerna",
@@ -327,7 +334,7 @@ export default function Home() {
             'id':11,
             'orderId':'400CBDF7EG',
             'status': 'Paid',
-            'date':  new Date('2011-10-10T14:48:00'),
+            'createdAt': '2011-10-10T14:48:00',
             'listPembeli': [{
                 "id": 1,
                 "nama": "Nuel Lietania Sampoerna",
@@ -356,7 +363,7 @@ export default function Home() {
             'id':12,
             'orderId':'400CBDF7EG',
             'status': 'Waiting',
-            'date':  new Date('2011-10-10T14:48:00'),
+            'createdAt': '2011-10-10T14:48:00',
             'listPembeli': [{
                 "id": 1,
                 "nama": "Nuel Lietania Sampoerna",
@@ -385,7 +392,7 @@ export default function Home() {
             'id':13,
             'orderId':'400CBDF7EG',
             'status': 'Waiting',
-            'date':  new Date('2011-10-10T14:48:00'),
+            'createdAt': '2011-10-10T14:48:00',
             'listPembeli': [{
                 "id": 1,
                 "nama": "Nuel Lietania Sampoerna",
@@ -414,7 +421,7 @@ export default function Home() {
             'id':14,
             'orderId':'400CBDF7EG',
             'status': 'Waiting',
-            'date':  new Date('2011-10-10T14:48:00'),
+            'createdAt': '2011-10-10T14:48:00',
             'listPembeli': [{
                 "id": 1,
                 "nama": "Nuel Lietania Sampoerna",
@@ -443,7 +450,7 @@ export default function Home() {
             'id':15,
             'orderId':'400CBDF7EG',
             'status': 'Waiting',
-            'date':  new Date('2011-10-10T14:48:00'),
+            'createdAt': '2011-10-10T14:48:00',
             'listPembeli': [{
                 "id": 1,
                 "nama": "Michael Sampoerna",
@@ -472,7 +479,7 @@ export default function Home() {
             'id':16,
             'orderId':'400CBDF7EH',
             'status': 'Waiting',
-            'date':  new Date('2011-10-10T14:48:00'),
+            'createdAt': '2011-10-10T14:48:00',
             'listPembeli': [{
                 "id": 1,
                 "nama": "a Samaya",
@@ -501,7 +508,7 @@ export default function Home() {
             'id':17,
             'orderId':'400CBDF7EH',
             'status': 'Waiting',
-            'date':  new Date('2011-10-10T14:48:00'),
+            'createdAt': '2011-10-10T17:48:00',
             'listPembeli': [{
                 "id": 1,
                 "nama": "Samaya",
@@ -530,7 +537,7 @@ export default function Home() {
             'id':15,
             'orderId':'400CBDF7EG',
             'status': 'Waiting',
-            'date':  new Date('2011-10-10T14:48:00'),
+            'createdAt':  '2011-10-10T14:48:00',
             'listPembeli': [{
                 "id": 1,
                 "nama": "Mariaaaa sahdkah dasdkasn hdashdjksb",
@@ -556,25 +563,64 @@ export default function Home() {
             'totalPembayaran': 102000,
         },
     ]
+
+    function sortOrdersByDate(orders) {
+        let sortedOrders = orders
+        sortedOrders.sort(function(a, b){
+            return new Date(b.createdAt) - new Date(a.createdAt);
+        });
+        console.log(sortedOrders)
+        return sortedOrders
+    }
+
     const fetchOrders = async () => {
-        var counts = [ordersDummy.length]
-        var statuses = ['Waiting', 'Paid', 'Cancelled']
-        statuses.map((val) => {
-            var filtered = ordersDummy.filter((obj) => obj.status === val)
-            counts.push(filtered.length)
-        })
-        setStatusCounts(counts)
-        setOrders(ordersDummy);
+        // setLoading(false)
+        // var counts = [ordersDummy.length]
+        // var statuses = ['Waiting', 'Paid', 'Cancelled']
+        // statuses.map((val) => {
+        //     var filtered = ordersDummy.filter((obj) => obj.status === val)
+        //     counts.push(filtered.length)
+        // })
+        // setStatusCounts(counts)
+        // let sortedOrders = sortOrdersByDate(ordersDummy)
+        // setOrders(sortedOrders)
+
+        setLoading(true)
+        try {
+            var fetchedOrders = await axios.get('https://fexb-dev.herokuapp.com/api/order')
+            console.log(fetchedOrders.data)
+            var counts = [fetchedOrders.data.length]
+            var statuses = ['Waiting', 'Paid', 'Cancelled']
+            statuses.map((val) => {
+                var filtered = fetchedOrders.data.filter((obj) => obj.status === val)
+                counts.push(filtered.length)
+            })
+            setStatusCounts(counts)
+            let sortedOrders = sortOrdersByDate(fetchedOrders.data)
+            setOrders(sortedOrders)
+            setLoading(false)
+        }
+        catch (err) {
+            console.log(err)
+            setMessage(['Fetch orders failed', 'Error occured. Please try logging in again.'])
+            slideInAlert()
+            setShowAlert(true)
+            setTimeout(redirectToLogin, 2000)
+        }
+    }
+    function redirectToLogin() {
+        router.push('/login')
     }
 
     useEffect(() => {
-        fetchOrders();
-        setLoading(false)
+        fetchOrders()
     }, []);
 
   return (
-    <div>{loading?<div><LoadingScreen /></div>:
+    <div><Alert message={message} success={success} showAlert={showAlert} setShowAlert={setShowAlert} />
+    {loading?<div><LoadingScreen /></div>:
         <>
+        <Alert message={message} success={success} showAlert={showAlert} setShowAlert={setShowAlert} />
         <Navbar />
         <div className="px-3 sm:px-10 md:px-14" >
         <div className=" mx-auto first-bar">

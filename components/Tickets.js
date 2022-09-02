@@ -1,6 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Tickets = ({ order }) => {
+    const [ticketPrices, setTicketPrices] = useState()
+
+    function getUnitPrice(namaTiket) {
+        return ticketPrices[namaTiket]
+    }
+
+    useEffect(() => { 
+        var tickets = {}
+        order.listPembeli.map((pembeli) => {
+            var nama = pembeli.tipeTiket.namaTiket
+            if (!tickets.nama) {
+                tickets[nama] = pembeli.tipeTiket.harga
+            }
+        })
+        setTicketPrices(tickets)
+    }, [order])
+
     return (
         <div>
             <div className="detail-title">
@@ -24,29 +41,37 @@ const Tickets = ({ order }) => {
                                 <td>Rp {(order.totalPembayaran / order.ticket).toLocaleString('id')},-</td>
                                 <td>Rp {order.totalPembayaran.toLocaleString('id')},-</td>
                             </tr>
+                            {/* {Object.entries(order.ticketFrequency).map([key, value] => (
+                            <tr className="text-2xs md:text-sm">
+                                <td>{key}</td>
+                                <td>x {value}</td>
+                                <td>Rp {getUnitPrice(key).toLocaleString('id')},-</td>
+                                <td>Rp {(value * getUnitPrice(key)).toLocaleString('id')},-</td>
+                            </tr>
+                            ))} */}
                         </tbody>
                     </table>
                 </div>
                 <div className="flex justify-end">
                     <div className="w-8/12 sm:w-6/12 md:w-7/12 lg:w-2/4 py-2 px-1.5 total-box">
-                        <div className="flex justify-between space-x-2 py-2">
+                        {/* <div className="flex justify-between space-x-2 py-2">
                             <p className="text-gray-darker font-bold">Payment Method</p>
                             <p className="text-right">{order.gateway}</p>
-                        </div>
+                        </div> */}
                         <div className="p-3 pt-0">
-                            <hr className="border bg-drop" />
+                            {/* <hr className="border bg-drop" /> */}
                             <div className="flex justify-between space-x-2 pt-2 pb-1">
                                 <p>Sub Total</p>
                                 <p className="text-right">Rp {order.totalPembayaran.toLocaleString('id')},-</p>
                             </div>
                             <div className="flex justify-between space-x-2 pt-1 pb-2">
                                 <p>Discount</p>
-                                <p className="text-right">Rp {order.discount.toLocaleString('id')},-</p>
+                                <p className="text-right">Rp {(order.totalPembayaran - order.pembayaranSetelahDiskon).toLocaleString('id')},-</p>
                             </div>
                             <hr className="bg-drop border" />
                             <div className="flex justify-between space-x-2 font-bold py-2">
                                 <p>Total</p>
-                                <p className="text-right">Rp {(order.totalPembayaran - order.discount).toLocaleString('id')},-</p>
+                                <p className="text-right">Rp {order.pembayaranSetelahDiskon.toLocaleString('id')},-</p>
                             </div>
                         </div>
                     </div>

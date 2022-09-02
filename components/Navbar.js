@@ -1,7 +1,9 @@
 import React from "react";
 import { Menu, Transition } from '@headlessui/react'
+import { useAppContext } from "../util/AppContext";
 
 const Navbar = () => {
+    const { user, setUser } = useAppContext()
 
     function mobileOnClick() {
         document.querySelector(".mobile-menu").classList.toggle("hidden");
@@ -27,7 +29,7 @@ const Navbar = () => {
                         <Menu>
                             <Menu.Button>
                                 <div className="hello">
-                                    <h1 className="float-left font-medium relative">Hello, tsanaativa.vinnera@gmail.com</h1>
+                                    <h1 className="float-left font-medium relative">Hello, {user}</h1>
                                     <div className="mt-2.5 ml-2.5" id="tri"></div>
                                 </div>
                             </Menu.Button>
@@ -75,7 +77,7 @@ const Navbar = () => {
             </div>
             <div className="hidden mobile-menu">
                 <ul className="bg-gray-light font-medium text-black divide-y divide-gray-200 transition duration-1000 ease-in-out">
-                    <li onClick={() => mobileOnClick()} className="cursor-pointer block text-sm px-2 py-4"><p>Hello, FexFEB@gmail.com<span className="font-stretch px-2">▴</span></p><div className="float-right border-solid border-t-black border-t-3 border-x-transparent border-x-3 border-b-0"></div></li>
+                    <li onClick={() => mobileOnClick()} className="cursor-pointer block text-sm px-2 py-4"><p>Hello, {user.username}<span className="font-stretch px-2">▴</span></p><div className="float-right border-solid border-t-black border-t-3 border-x-transparent border-x-3 border-b-0"></div></li>
                     <div role="none">
                         <li><a href="https://fexb.netlify.app/" className="block text-sm px-2 py-4 hover:bg-gray transition duration-300">Home</a></li>
                         <li><a href="/logout" className="block text-sm text-red px-2 py-4 hover:bg-gray transition duration-300">Sign Out</a></li>

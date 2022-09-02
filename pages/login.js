@@ -1,8 +1,13 @@
+import { Router, useRouter } from "next/router";
 import React, { useState } from "react"
 import Alert from "../components/Alert";
 import slideInAlert from "../util/slideInAlert";
+import axios from "axios";
+import { useAppContext } from "../util/AppContext";
 
 export default function Login() {
+    const { setUser } = useAppContext()
+    const router = useRouter()
     const [showPwd, setShowPwd] = useState(false);
     function togglePwd(e) {
         e.preventDefault();
@@ -11,16 +16,61 @@ export default function Login() {
     }
 
     const [loading, setLoading] = useState(false)
+    const [success, setSuccess] = useState(false)
     const [errorCode, setErrorCode] = useState()
-    const [message, setMessage] = useState(['Login successful!', 'Welcome, admin!'])
+    const [message, setMessage] = useState(['',''])
+    const [showAlert, setShowAlert] = useState()
 
-    function handleLogin() {
-        slideInAlert()
+    const handleLogin = async () => {
+        setLoading(true)
+        let username = document.getElementById('username').value
+        let password = document.getElementById('password').value
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+        
+        const data = JSON.stringify({
+            'username': username,
+            'password': password
+        })
+        console.log(data)
+        try {
+            await axios.post('https://fexb-dev.herokuapp.com/admin/login', data, config)
+            setSuccess(true)
+            setMessage(['Login successful!', 'Welcome, admin!'])
+            setShowAlert(true)
+            slideInAlert()
+            setUser(username)
+            setTimeout(redirectToHome, 2000)
+        }
+        catch (err) {
+            console.log(err)
+            if (err.response?.status === 401) {
+                if (err.response.data['reason']['message'].includes("password")) {
+                setErrorCode(2)
+                }
+            } else {
+                if (err.response.data?.reason?.message.includes("not exist")) {
+                    setErrorCode(1)
+                } else {
+                    setMessage(['Login failed.', 'Error occured. Please try again.'])
+                    setShowAlert(true)
+                    slideInAlert()
+                }
+            }
+            setLoading(false)
+        }
+    }
+    function redirectToHome() {
+        router.push('/')
     }
 
     return (
         <div id="login">
-            <Alert message={message} />
+            <Alert message={message} success={success} showAlert={showAlert} setShowAlert={setShowAlert} />
             <div className="bg-[url('../public/assets/bg-login.png')] h-screen items-center flex justify-center p-2">
                 <div className="bg-white rounded-3xl max-w-md max-h-fit p-10 text-center shadow-2xl">
                     <div className="flex justify-center pb-6">
@@ -30,8 +80,8 @@ export default function Login() {
                     <h3>Welcome Back!</h3>
                     <div className="pt-9 pb-12">
                         <form className="space-y-4">
-                            <input type="text" placeholder="Enter your email *" className={errorCode === 1 && "error"} />
-                            <input type={showPwd?"text":"password"} placeholder="Enter your password *" className={"relative" + (errorCode === 2 && ' error')} />
+                            <input id="username" type="text" placeholder="Enter your email *" className={errorCode === 1 && "error"} />
+                            <input id="password" type={showPwd?"text":"password"} placeholder="Enter your password *" className={"relative" + (errorCode === 2 && ' error')} />
                             <span className="pt-1.5 absolute">
                                 <button className="btn-pwd -ml-12" onClick={(e) => togglePwd(e)}>
                                     <img src={showPwd? "/assets/show-pwd.svg":"/assets/hide-pwd.svg"} className="h-3.5" alt=""/>
