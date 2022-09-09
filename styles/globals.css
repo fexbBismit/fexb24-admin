@@ -403,6 +403,10 @@ input:focus{
     vertical-align: middle;
   }
 
+  .fetching {
+    width: 100% !important;
+  }
+
   .table-wrapper *,
   .table-wrapper {
     scrollbar-width: thin;

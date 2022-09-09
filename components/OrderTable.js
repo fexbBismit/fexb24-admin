@@ -2,7 +2,7 @@ import Link from "next/link";
 import React, { useEffect } from "react";
 import formatDate from "../util/formatDate";
 
-const OrderTable = ( {orders, checkedList, setCheckedList, setCurrentPage} ) => {
+const OrderTable = ( {sortBy, orders, checkedList, setCheckedList, setCurrentPage, isFetching} ) => {
 
     function handleCheck(e, id) {
         var checked = checkedList
@@ -22,6 +22,12 @@ const OrderTable = ( {orders, checkedList, setCheckedList, setCurrentPage} ) => 
             if (checked) {
                 checked.checked  = true
             }
+        }
+        var sorter = document.getElementById('sorter')
+        if (sortBy) {
+            sorter.checked = true
+        } else {
+            sorter.checked = false
         }
     }
 
@@ -63,7 +69,18 @@ const OrderTable = ( {orders, checkedList, setCheckedList, setCurrentPage} ) => 
                         </tr>
                     </thead>
                     <tbody className="border border-gray">
-                        {orders.map(order => (
+                        {isFetching?
+                        <tr className="overflow-x-hidden">
+                            <td colSpan="9" className="fetching">
+                                <div className="flex justify-center w-full py-10">
+                                    <div className="justify-items-center">
+                                        <img src='/assets/loading.svg' alt="" className="h-36 display-block mx-auto -mt-5" />
+                                        <p className="text-purple text-sm text-center font-semibold -mt-3">Loading...</p>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>:
+                        <>{orders.map(order => (
                             <tr>
                                 <td className="w-6 md:w-9 ">
                                     <label className="container-check">
@@ -73,9 +90,9 @@ const OrderTable = ( {orders, checkedList, setCheckedList, setCurrentPage} ) => 
                                 </td>
                                 <td className="font-bold">{order.id}</td>
                                 <td>
-                                    {order.status === 'Paid' && <div className="btn-status border-paid-out text-paid bg-paid-in w-full">{order.status}</div>}
+                                    {order.paymentId !== null && <div className="btn-status border-paid-out text-paid bg-paid-in w-full">Paid</div>}
                                     
-                                    {order.status === 'Waiting' && <div className="btn-status border-wait-out text-wait bg-wait-in w-full">{order.status}</div>}
+                                    {order.paymentId === null && <div className="btn-status border-wait-out text-wait bg-wait-in w-full">Waiting</div>}
                                     
                                     {order.status === 'Cancelled' && <div className="btn-status border-cancel text-cancel bg-cancel-in w-full">{order.status}</div>}
                                 </td>
@@ -94,7 +111,7 @@ const OrderTable = ( {orders, checkedList, setCheckedList, setCurrentPage} ) => 
                                     </button></Link>
                                 </td>
                             </tr>
-                        ))}
+                        ))}</>}
                     </tbody>
                 </table>
             </div>

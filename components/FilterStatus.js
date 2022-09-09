@@ -1,24 +1,12 @@
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Menu, Transition } from '@headlessui/react'
-import Link from "next/link";
 
-const FilterStatus = ({ orders, filter, setFilter, setFilteredOrders, setCurrentPage, setSearchInput, setSearchResult }) => {
+const FilterStatus = ({ setIsFetching, filter, setFilter, setCurrentPage }) => {
     
-    const handleStatus = (stat) => {
-        document.getElementById('search').value = '';
-        setSearchInput('')
-        setSearchResult()
-        var orderList = orders
-        if (stat !== 'Any') {
-            var filtered = orderList.filter((el) => el.status ===  stat)
-            setFilteredOrders(filtered)
-            setFilter(stat)
-        } else {
-            setFilteredOrders()
-            setFilter()
-        }
+    const handleStatus = (status) => {
+        setFilter(status)
         setCurrentPage(1)
+        setIsFetching(true)
     }
 
     return (
@@ -55,7 +43,7 @@ const FilterStatus = ({ orders, filter, setFilter, setFilteredOrders, setCurrent
                                     <a className={`${active}`}>
                                         <div className="dropdown w-20 md:w-24 -mt-6" id="status-drop">
                                             <ul>
-                                                <li onClick={() => handleStatus('Any')}><div>{!filter && <img src="/assets/check.svg" alt="" />}</div>Any</li>
+                                                <li onClick={() => handleStatus('Any')}><div>{filter === 'Any' && <img src="/assets/check.svg" alt="" />}</div>Any</li>
                                                 <li onClick={() => handleStatus('Waiting')}><div>{filter === 'Waiting' && <img src="/assets/check.svg" alt="" />}</div>Wait to Pay</li>
                                                 <li onClick={() => handleStatus('Paid')}><div>{filter === 'Paid' && <img src="/assets/check.svg" alt="" />}</div>Paid</li>
                                                 <li onClick={() => handleStatus('Cancelled')}><div>{filter === 'Cancelled' && <img src="/assets/check.svg" alt=""/>}</div>Cancelled</li>

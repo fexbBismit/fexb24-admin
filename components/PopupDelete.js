@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { Dialog, Transition } from '@headlessui/react'
 
-const PopupDelete = ({checkedList}) => {
+const PopupDelete = ({checkedList, setCheckedList}) => {
     let [isOpen, setIsOpen] = useState(false)
 
     function closeModal() {
@@ -13,7 +13,7 @@ const PopupDelete = ({checkedList}) => {
     }
 
     function handleDelete() {
-        
+        setCheckedList([])
     }
 
     return (

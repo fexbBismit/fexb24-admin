@@ -11,594 +11,57 @@ import Sorter from "../components/Sorter"
 import Alert from "../components/Alert";
 import slideInAlert from "../util/slideInAlert";
 import axios from 'axios'
+import getFilterBody from "../util/getFilterBody";
 
 export default function Home() {
   const router = useRouter()
 
-  const [loading, setLoading] = useState(true);
-  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true)
+  const [orders, setOrders] = useState([])
   const [statusCounts, setStatusCounts] = useState(['','','',''])
-  const [filter, setFilter] = useState();
-  const [searchBy, setSearchBy] = useState(null);
-  const [searchInput, setSearchInput] = useState('');
-  const [checkedList, setCheckedList] = useState([])
-  const [filteredOrders, setFilteredOrders] = useState()
-  const [searchResult, setSearchResult] = useState()
+  const [totalOrder, setTotalOrder] = useState()
+  const [currentPage, setCurrentPage] = useState(1)
+  const [maxPage, setMaxPage] = useState()
 
-  const postsPerPage = 10;
-  const [currentPage, setCurrentPage] = useState(1);
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  let currentPosts = "";
-  let postLength = 0;
+  const [sortBy, setSortBy] = useState(false)
+  const [filter, setFilter] = useState('Any')
+  const [searchBy, setSearchBy] = useState('nama')
+  const [searchInput, setSearchInput] = useState('')
   
-  if (searchResult) {
-    currentPosts = searchResult.slice(indexOfFirstPost, indexOfLastPost);
-    postLength = searchResult.length;
-  } else if (filteredOrders) {
-      currentPosts = filteredOrders.slice(indexOfFirstPost, indexOfLastPost);
-      postLength = filteredOrders.length;
-  } else if (orders !== []) {
-      currentPosts = orders.slice(indexOfFirstPost, indexOfLastPost);
-      postLength = orders.length;
-  }
-  const paginate = pageNumber => setCurrentPage(pageNumber);
+  const [checkedList, setCheckedList] = useState([])
+  const [isFetching, setIsFetching] = useState(false)
+  const [isFirstRender, setIsFirstRender] = useState(true)
 
   const [success, setSuccess] = useState(false)
   const [message, setMessage] = useState(['',''])
   const [showAlert, setShowAlert] = useState()
   
-  const ordersDummy = [
-        {
-            'id':1,
-            'orderId':'400CBDF7EF',
-            'status': 'Paid',
-            'createdAt': '2009-08-20T14:50:00',
-            'listPembeli': [{
-                "id": 1,
-                "nama": "Nuel Lietania Sampoerna",
-                "email": "nuelgeming@gmail.com",
-                "idLine": "nuel123",
-                "nomorWA": "087741161102",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            },{
-                "id": 2,
-                "nama": "Maria",
-                "email": "maria@gmail.com",
-                "idLine": "marl123",
-                "nomorWA": "087741161222",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            }],
-            'ticket': 100,
-            'gateway': 'Virtual Account',
-            'discount': 25000,
-            'totalPembayaran': 10200000,
-        },
-        {
-            'id':2,
-            'orderId':'400CBDF7EG',
-            'status': 'Cancelled',
-            'createdAt': '2022-08-20T14:50:00',
-            'listPembeli': [{
-                "id": 1,
-                "nama": "Nuel Lietania Sampoerna",
-                "email": "nuelgeming@gmail.com",
-                "idLine": "nuel123",
-                "nomorWA": "087741161102",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            },{
-                "id": 2,
-                "nama": "Maria",
-                "email": "maria@gmail.com",
-                "idLine": "marl123",
-                "nomorWA": "087741161222",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            }],
-            'ticket': 100,
-            'gateway': 'Virtual Account',
-            'discount': 25000,
-            'totalPembayaran': 10200000,
-        },
-        {
-            'id':3,
-            'orderId':'400CBDF7EG',
-            'status': 'Waiting',
-            'createdAt': '2015-10-10T14:50:00',
-            'listPembeli': [{
-                "id": 1,
-                "nama": "Nuel Lietania Sampoerna",
-                "email": "nuelgeming@gmail.com",
-                "idLine": "nuel123",
-                "nomorWA": "087741161102",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            },{
-                "id": 2,
-                "nama": "Maria",
-                "email": "maria@gmail.com",
-                "idLine": "marl123",
-                "nomorWA": "087741161222",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            }],
-            'ticket': 100,
-            'gateway': 'Virtual Account',
-            'discount': 25000,
-            'totalPembayaran': 10200000,
-        },
-        {
-            'id':4,
-            'orderId':'400CBDF7EF',
-            'status': 'Paid',
-            'createdAt': '2015-10-10T14:48:00',
-            'listPembeli': [{
-                "id": 1,
-                "nama": "Nuel Lietania Sampoerna",
-                "email": "nuelgeming@gmail.com",
-                "idLine": "nuel123",
-                "nomorWA": "087741161102",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            },{
-                "id": 2,
-                "nama": "Maria",
-                "email": "maria@gmail.com",
-                "idLine": "marl123",
-                "nomorWA": "087741161222",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            }],
-            'ticket': 100,
-            'gateway': 'Virtual Account',
-            'discount': 25000,
-            'totalPembayaran': 10200000,
-        },
-        {
-            'id':5,
-            'orderId':'400CBDF7EG',
-            'status': 'Cancelled',
-            'createdAt': '2013-10-10T14:48:00',
-            'listPembeli': [{
-                "id": 1,
-                "nama": "Nuel Lietania Sampoerna",
-                "email": "nuelgeming@gmail.com",
-                "idLine": "nuel123",
-                "nomorWA": "087741161102",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            },{
-                "id": 2,
-                "nama": "Maria",
-                "email": "maria@gmail.com",
-                "idLine": "marl123",
-                "nomorWA": "087741161222",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            }],
-            'ticket': 100,
-            'gateway': 'Virtual Account',
-            'discount': 25000,
-            'totalPembayaran': 10200000,
-        },
-        {
-            'id':6,
-            'orderId':'400CBDF7EG',
-            'status': 'Waiting',
-            'createdAt': '2011-10-10T14:48:00',
-            'listPembeli': [{
-                "id": 1,
-                "nama": "Nuel Lietania Sampoerna",
-                "email": "nuelgeming@gmail.com",
-                "idLine": "nuel123",
-                "nomorWA": "087741161102",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            },{
-                "id": 2,
-                "nama": "Maria",
-                "email": "maria@gmail.com",
-                "idLine": "marl123",
-                "nomorWA": "087741161222",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            }],
-            'ticket': 100,
-            'gateway': 'Virtual Account',
-            'discount': 25000,
-            'totalPembayaran': 10200000,
-        },
-        {
-            'id':7,
-            'orderId':'400CBDF7EG',
-            'status': 'Waiting',
-            'createdAt': '2012-10-10T14:48:00',
-            'listPembeli': [{
-                "id": 1,
-                "nama": "Nuel Lietania Sampoerna",
-                "email": "nuelgeming@gmail.com",
-                "idLine": "nuel123",
-                "nomorWA": "087741161102",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            },{
-                "id": 2,
-                "nama": "Maria",
-                "email": "maria@gmail.com",
-                "idLine": "marl123",
-                "nomorWA": "087741161222",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            }],
-            'ticket': 100,
-            'gateway': 'Virtual Account',
-            'discount': 25000,
-            'totalPembayaran': 10200000,
-        },
-        {
-            'id':8,
-            'orderId':'400CBDF7EG',
-            'status': 'Waiting',
-            'createdAt': '2011-10-10T14:48:00',
-            'listPembeli': [{
-                "id": 1,
-                "nama": "Nuel Lietania Sampoerna",
-                "email": "nuelgeming@gmail.com",
-                "idLine": "nuel123",
-                "nomorWA": "087741161102",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            }],
-            'ticket': 100,
-            'gateway': 'Virtual Account',
-            'discount': 25000,
-            'totalPembayaran': 10200000,
-        },
-        {
-            'id':9,
-            'orderId':'400CBDF7EG',
-            'status': 'Waiting',
-            'createdAt': '2011-10-10T14:48:00',
-            'listPembeli': [{
-                "id": 1,
-                "nama": "Nuel Lietania Sampoerna",
-                "email": "nuelgeming@gmail.com",
-                "idLine": "nuel123",
-                "nomorWA": "087741161102",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            },{
-                "id": 2,
-                "nama": "Maria",
-                "email": "maria@gmail.com",
-                "idLine": "marl123",
-                "nomorWA": "087741161222",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            }],
-            'ticket': 100,
-            'gateway': 'Virtual Account',
-            'discount': 25000,
-            'totalPembayaran': 10200000,
-        },
-        {
-            'id':10,
-            'orderId':'400CBDF7EG',
-            'status': 'Waiting',
-            'createdAt': '2011-10-10T14:48:00',
-            'listPembeli': [{
-                "id": 1,
-                "nama": "Nuel Lietania Sampoerna",
-                "email": "nuelgeming@gmail.com",
-                "idLine": "nuel123",
-                "nomorWA": "087741161102",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            },{
-                "id": 2,
-                "nama": "Maria",
-                "email": "maria@gmail.com",
-                "idLine": "marl123",
-                "nomorWA": "087741161222",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            }],
-            'ticket': 100,
-            'gateway': 'Virtual Account',
-            'discount': 25000,
-            'totalPembayaran': 10200000,
-        },
-        {
-            'id':11,
-            'orderId':'400CBDF7EG',
-            'status': 'Paid',
-            'createdAt': '2011-10-10T14:48:00',
-            'listPembeli': [{
-                "id": 1,
-                "nama": "Nuel Lietania Sampoerna",
-                "email": "nuelgeming@gmail.com",
-                "idLine": "nuel123",
-                "nomorWA": "087741161102",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            },{
-                "id": 2,
-                "nama": "Maria",
-                "email": "maria@gmail.com",
-                "idLine": "marl123",
-                "nomorWA": "087741161222",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            }],
-            'ticket': 100,
-            'gateway': 'Virtual Account',
-            'discount': 25000,
-            'totalPembayaran': 10200000,
-        },
-        {
-            'id':12,
-            'orderId':'400CBDF7EG',
-            'status': 'Waiting',
-            'createdAt': '2011-10-10T14:48:00',
-            'listPembeli': [{
-                "id": 1,
-                "nama": "Nuel Lietania Sampoerna",
-                "email": "nuelgeming@gmail.com",
-                "idLine": "nuel123",
-                "nomorWA": "087741161102",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            },{
-                "id": 2,
-                "nama": "Maria",
-                "email": "maria@gmail.com",
-                "idLine": "marl123",
-                "nomorWA": "087741161222",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            }],
-            'ticket': 100,
-            'gateway': 'Virtual Account',
-            'discount': 25000,
-            'totalPembayaran': 10200000,
-        },
-        {
-            'id':13,
-            'orderId':'400CBDF7EG',
-            'status': 'Waiting',
-            'createdAt': '2011-10-10T14:48:00',
-            'listPembeli': [{
-                "id": 1,
-                "nama": "Nuel Lietania Sampoerna",
-                "email": "nuelgeming@gmail.com",
-                "idLine": "nuel123",
-                "nomorWA": "087741161102",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            },{
-                "id": 2,
-                "nama": "Maria",
-                "email": "maria@gmail.com",
-                "idLine": "marl123",
-                "nomorWA": "087741161222",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            }],
-            'ticket': 100,
-            'gateway': 'Virtual Account',
-            'discount': 25000,
-            'totalPembayaran': 10200000,
-        },
-        {
-            'id':14,
-            'orderId':'400CBDF7EG',
-            'status': 'Waiting',
-            'createdAt': '2011-10-10T14:48:00',
-            'listPembeli': [{
-                "id": 1,
-                "nama": "Nuel Lietania Sampoerna",
-                "email": "nuelgeming@gmail.com",
-                "idLine": "nuel123",
-                "nomorWA": "087741161102",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            },{
-                "id": 2,
-                "nama": "Maria",
-                "email": "maria@gmail.com",
-                "idLine": "marl123",
-                "nomorWA": "087741161222",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            }],
-            'ticket': 100,
-            'gateway': 'Virtual Account',
-            'discount': 25000,
-            'totalPembayaran': 10200000,
-        },
-        {
-            'id':15,
-            'orderId':'400CBDF7EG',
-            'status': 'Waiting',
-            'createdAt': '2011-10-10T14:48:00',
-            'listPembeli': [{
-                "id": 1,
-                "nama": "Michael Sampoerna",
-                "email": "nuelgeming@gmail.com",
-                "idLine": "nuel123",
-                "nomorWA": "087741161102",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            },{
-                "id": 2,
-                "nama": "Maria",
-                "email": "maria@gmail.com",
-                "idLine": "marl123",
-                "nomorWA": "087741161222",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            }],
-            'ticket': 100,
-            'gateway': 'Virtual Account',
-            'discount': 25000,
-            'totalPembayaran': 10200000,
-        },
-        {
-            'id':16,
-            'orderId':'400CBDF7EH',
-            'status': 'Waiting',
-            'createdAt': '2011-10-10T14:48:00',
-            'listPembeli': [{
-                "id": 1,
-                "nama": "a Samaya",
-                "email": "nuelgeming@gmail.com",
-                "idLine": "nuel123",
-                "nomorWA": "087741161102",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            },{
-                "id": 2,
-                "nama": "Maria",
-                "email": "maria@gmail.com",
-                "idLine": "marl123",
-                "nomorWA": "087741161222",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            }],
-            'ticket': 10,
-            'gateway': 'Gopay',
-            'discount': 2500,
-            'totalPembayaran': 10200000,
-        },
-        {
-            'id':17,
-            'orderId':'400CBDF7EH',
-            'status': 'Waiting',
-            'createdAt': '2011-10-10T17:48:00',
-            'listPembeli': [{
-                "id": 1,
-                "nama": "Samaya",
-                "email": "nuelgeming@gmail.com",
-                "idLine": "nuel123",
-                "nomorWA": "087741161102",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            },{
-                "id": 2,
-                "nama": "Maria",
-                "email": "maria@gmail.com",
-                "idLine": "marl123",
-                "nomorWA": "087741161222",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            }],
-            'ticket': 100,
-            'gateway': 'Virtual Account',
-            'discount': 25000,
-            'totalPembayaran': 10200000,
-        },
-        {
-            'id':15,
-            'orderId':'400CBDF7EG',
-            'status': 'Waiting',
-            'createdAt':  '2011-10-10T14:48:00',
-            'listPembeli': [{
-                "id": 1,
-                "nama": "Mariaaaa sahdkah dasdkasn hdashdjksb",
-                "email": "nuelgeming@gmail.com",
-                "idLine": "nuel123",
-                "nomorWA": "087741161102",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            },{
-                "id": 2,
-                "nama": "Maria",
-                "email": "maria@gmail.com",
-                "idLine": "marl123",
-                "nomorWA": "087741161222",
-                "highschool": "SMAN 49 Jakarta",
-                "orderId": 1,
-                "tiketId": 1
-            }],
-            'ticket': 100,
-            'gateway': 'Virtual Account',
-            'discount': 25000,
-            'totalPembayaran': 102000,
-        },
-    ]
-
-    function sortOrdersByDate(orders) {
-        let sortedOrders = orders
-        sortedOrders.sort(function(a, b){
-            return new Date(b.createdAt) - new Date(a.createdAt);
-        });
-        console.log(sortedOrders)
-        return sortedOrders
-    }
-
     const fetchOrders = async () => {
-        // setLoading(false)
-        // var counts = [ordersDummy.length]
-        // var statuses = ['Waiting', 'Paid', 'Cancelled']
-        // statuses.map((val) => {
-        //     var filtered = ordersDummy.filter((obj) => obj.status === val)
-        //     counts.push(filtered.length)
-        // })
-        // setStatusCounts(counts)
-        // let sortedOrders = sortOrdersByDate(ordersDummy)
-        // setOrders(sortedOrders)
-
-        setLoading(true)
+        if (isFirstRender) {
+            setLoading(true)
+        }
         try {
-            var fetchedOrders = await axios.get('https://fexb-dev.herokuapp.com/api/order')
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+            
+            var body = JSON.stringify(getFilterBody(sortBy, filter, searchBy, searchInput))
+            var fetchedOrders = await axios.post(`https://fexb-dev.herokuapp.com/api/get-order?page=${currentPage}`, body, config)
             console.log(fetchedOrders.data)
-            var counts = [fetchedOrders.data.length]
-            var statuses = ['Waiting', 'Paid', 'Cancelled']
-            statuses.map((val) => {
-                var filtered = fetchedOrders.data.filter((obj) => obj.status === val)
-                counts.push(filtered.length)
-            })
+
+            var counts = [fetchedOrders.data.metadata.totalOrder, fetchedOrders.data.metadata.totalWaitingOrder, fetchedOrders.data.metadata.totalPaidOrder, 0]
             setStatusCounts(counts)
-            let sortedOrders = sortOrdersByDate(fetchedOrders.data)
-            setOrders(sortedOrders)
-            setLoading(false)
+            setTotalOrder(fetchedOrders.data.metadata.totalItem)
+            setMaxPage(parseInt(fetchedOrders.data.metadata.totalPage))
+            setOrders(fetchedOrders.data.data)
+
+            if (isFirstRender) {
+                setLoading(false)
+            } else {
+                setIsFetching(false)
+            }
         }
         catch (err) {
             console.log(err)
@@ -614,7 +77,14 @@ export default function Home() {
 
     useEffect(() => {
         fetchOrders()
+        setIsFirstRender(false)
     }, []);
+
+    useEffect(() => {
+        if (isFetching) {
+            fetchOrders()
+        }
+    }, [isFetching]);
 
   return (
     <div><Alert message={message} success={success} showAlert={showAlert} setShowAlert={setShowAlert} />
@@ -645,25 +115,40 @@ export default function Home() {
                 </div>
             </div>
             <Pagination 
+                setIsFetching={setIsFetching}
                 currentPage={currentPage}
-                postsPerPage={postsPerPage}
-                totalPosts={postLength}
-                paginate={paginate}
+                setCurrentPage={setCurrentPage}
+                maxPage={maxPage}
+                totalOrder={totalOrder}
                 />
         </div>
         <hr className="border-2 border-drop-lighter" />
         <div className="mx-auto py-4 second-bar">
             <div className="flex justify-center space-x-1.5 md:space-x-2.5 text-2xs md:text-sm second-bar-child">
-                <Sorter orders={orders} setOrders={setOrders} filteredOrders={filteredOrders} setFilteredOrders={setFilteredOrders} searchResult={searchResult} setSearchResult={setSearchResult} />
-                <FilterStatus orders={orders} filter={filter} setFilter={setFilter} setFilteredOrders={setFilteredOrders} setCurrentPage={setCurrentPage} setSearchInput={setSearchInput} setSearchResult={setSearchResult} />
+                <Sorter
+                    setSortBy={setSortBy}
+                    setIsFetching={setIsFetching}
+                />
+                <FilterStatus 
+                    filter={filter}
+                    setFilter={setFilter}
+                    setIsFetching={setIsFetching}
+                    setCurrentPage={setCurrentPage}
+                />
             </div>
             <div className="flex justify-center space-x-1.5 md:space-x-2.5 text-2xs md:text-sm pt-3 md:pt-0 second-bar-child">
-                <SearchBar setSearchBy={setSearchBy} searchBy={searchBy} setSearchInput={setSearchInput} orders={orders} setOrders={setOrders} filteredOrders={filteredOrders} setSearchResult={setSearchResult} setCurrentPage={setCurrentPage} />
-                <PopupDelete checkedList={checkedList} />
+                <SearchBar
+                    searchBy={searchBy}
+                    setSearchBy={setSearchBy}
+                    setSearchInput={setSearchInput}
+                    setIsFetching={setIsFetching}
+                    setCurrentPage={setCurrentPage}
+                 />
+                <PopupDelete checkedList={checkedList} setCheckedList={setCheckedList} />
             </div>
         </div>
         <div>
-            <OrderTable orders={currentPosts} checkedList={checkedList} setCheckedList={setCheckedList} setCurrentPage={setCurrentPage} />
+            <OrderTable sortBy={sortBy} orders={orders} checkedList={checkedList} setCheckedList={setCheckedList} setCurrentPage={setCurrentPage} isFetching={isFetching} />
         </div>
     </div></>
     }
