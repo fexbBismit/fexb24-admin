@@ -250,7 +250,7 @@ input:focus{
   border-bottom: 1px solid #BCBCBC;
 }
 .ticket-table td {
-  @apply px-1 py-2;
+  @apply px-1 py-1;
 }
 
 .detail-title {

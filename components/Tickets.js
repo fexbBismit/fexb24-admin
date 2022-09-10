@@ -4,7 +4,11 @@ const Tickets = ({ order }) => {
     const [ticketPrices, setTicketPrices] = useState()
 
     function getUnitPrice(namaTiket) {
-        return ticketPrices[namaTiket]
+        if (ticketPrices) {
+            return ticketPrices[namaTiket]
+        } else {
+            return 0
+        }
     }
 
     useEffect(() => { 
@@ -16,6 +20,7 @@ const Tickets = ({ order }) => {
             }
         })
         setTicketPrices(tickets)
+        console.log(tickets)
     }, [order])
 
     return (
@@ -24,7 +29,7 @@ const Tickets = ({ order }) => {
                 <h1 className="text-sm md:text-xl pl-1">Ticket(s)</h1>
             </div>
             <div className="py-4 text-xs md:text-sm">
-                <div className="border border-drop rounded-2xl px-2 md:px-5 py-1 flex justify-center">
+                <div className="border border-drop rounded-2xl px-2 md:px-5 py-2 flex justify-center">
                     <table className="ticket-table text-center">
                         <thead className="font-bold">
                             <tr>
@@ -35,20 +40,14 @@ const Tickets = ({ order }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr className="text-2xs md:text-sm">
-                                <td>FExB FEBUI 2022</td>
-                                <td>x {order.ticket}</td>
-                                <td>Rp {(order.totalPembayaran / order.ticket).toLocaleString('id')},-</td>
-                                <td>Rp {order.totalPembayaran.toLocaleString('id')},-</td>
-                            </tr>
-                            {/* {Object.entries(order.ticketFrequency).map([key, value] => (
+                            {Object.entries(order.tiketFrequency).map(([key, value]) => (
                             <tr className="text-2xs md:text-sm">
                                 <td>{key}</td>
                                 <td>x {value}</td>
                                 <td>Rp {getUnitPrice(key).toLocaleString('id')},-</td>
                                 <td>Rp {(value * getUnitPrice(key)).toLocaleString('id')},-</td>
                             </tr>
-                            ))} */}
+                            ))}
                         </tbody>
                     </table>
                 </div>
