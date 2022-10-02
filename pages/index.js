@@ -17,7 +17,7 @@ export default function Home() {
 
   const [loading, setLoading] = useState(true)
   const [orders, setOrders] = useState([])
-  const [statusCounts, setStatusCounts] = useState(['','','',''])
+  const [statusCounts, setStatusCounts] = useState(['','',''])
   const [totalOrder, setTotalOrder] = useState()
   const [currentPage, setCurrentPage] = useState(1)
   const [maxPage, setMaxPage] = useState()
@@ -49,7 +49,7 @@ export default function Home() {
             var fetchedOrders = await axios.post(`https://fexb-dev.herokuapp.com/api/get-order?page=${currentPage}`, body, config)
             console.log(fetchedOrders.data)
 
-            var counts = [fetchedOrders.data.metadata.totalOrder, fetchedOrders.data.metadata.totalWaitingOrder, fetchedOrders.data.metadata.totalPaidOrder, 0]
+            var counts = [fetchedOrders.data.metadata.totalOrder, fetchedOrders.data.metadata.totalWaitingOrder, fetchedOrders.data.metadata.totalPaidOrder]
             setStatusCounts(counts)
             setTotalOrder(fetchedOrders.data.metadata.totalItem)
             setMaxPage(parseInt(fetchedOrders.data.metadata.totalPage))
@@ -106,10 +106,6 @@ export default function Home() {
                         <h3 className="float-left text-xs md:text-sm -mr-0.5">Paid</h3>
                         <span className="badge text-2xs">{statusCounts[2]}</span>
                     </div>
-                    <div className="pl-1.5 md:px-2.5">
-                        <h3 className="float-left text-xs md:text-sm -mr-0.5">Cancelled</h3>
-                        <span className="badge text-2xs">{statusCounts[3]}</span>
-                    </div>
                 </div>
             </div>
             <Pagination 
@@ -122,7 +118,7 @@ export default function Home() {
         </div>
         <hr className="border-2 border-drop-lighter" />
         <div className="mx-auto py-4 second-bar">
-            <div className="flex justify-center space-x-1.5 md:space-x-2.5 text-2xs md:text-sm second-bar-child">
+            <div className="flex flex-wrap gap-y-2.5 justify-center space-x-1.5 md:space-x-2.5 text-2xs md:text-sm second-bar-child">
                 <Sorter
                     setSortBy={setSortBy}
                     setIsFetching={setIsFetching}

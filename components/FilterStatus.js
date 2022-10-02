@@ -10,7 +10,7 @@ const FilterStatus = ({ setIsFetching, filter, setFilter, setCurrentPage }) => {
     }
 
     return (
-        <div>
+        <div id="filter">
             <div className="box-purple px-2.5 md:px-4 py-1 md:py-2 space-x-2 flex items-center">
                 <img src="/assets/filter.svg" alt="" className="h-3" />
                 <span className="text-2xs md:text-sm font-semibold md:font-medium">Filter Status</span>
@@ -46,7 +46,6 @@ const FilterStatus = ({ setIsFetching, filter, setFilter, setCurrentPage }) => {
                                                 <li onClick={() => handleStatus('Any')}><div>{filter === 'Any' && <img src="/assets/check.svg" alt="" />}</div>Any</li>
                                                 <li onClick={() => handleStatus('Waiting')}><div>{filter === 'Waiting' && <img src="/assets/check.svg" alt="" />}</div>Wait to Pay</li>
                                                 <li onClick={() => handleStatus('Paid')}><div>{filter === 'Paid' && <img src="/assets/check.svg" alt="" />}</div>Paid</li>
-                                                <li onClick={() => handleStatus('Cancelled')}><div>{filter === 'Cancelled' && <img src="/assets/check.svg" alt=""/>}</div>Cancelled</li>
                                             </ul>
                                         </div>
                                     </a>

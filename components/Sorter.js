@@ -15,7 +15,7 @@ const Sorter = ({ setSortBy, setIsFetching }) => {
     }
 
     return (
-        <div>
+        <div id="sorter">
             <div className="box-purple px-2 md:px-4 py-1.5 md:py-2.5 space-x-1 md:space-x-2 flex">
                 <span className="text-2xs md:text-sm font-semibold md:font-medium">Sort by:</span>
                 <span className="text-2xs md:text-sm font-semibold">Newest</span>

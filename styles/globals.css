@@ -320,6 +320,14 @@ input:focus{
   overflow-x: auto;
 }
 
+#sorter {
+  min-width: 170.79px;
+}
+
+#filter {
+  min-width: 193.74px;
+}
+
 @media (min-width: 768px) {
   .search-drop {
     margin-top: -2.36rem;

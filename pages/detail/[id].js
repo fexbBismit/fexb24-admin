@@ -73,7 +73,7 @@ export default function Detail() {
                         <div className="detail-title">
                             <div className="flex items-center w-full">
                                 <span className="md:pl-1 text-sm md:text-xl">Order ID</span>
-                                <span className="text-purple text-sm md:text-xl pl-4">{order.id}</span> 
+                                <span className="text-purple text-xs md:text-md pl-4">{order.id}</span> 
                             </div>
                         </div>
                     </div>
@@ -84,7 +84,7 @@ export default function Detail() {
                         </div>
                         <div>
                             <p className="font-bold text-gray-darker pb-2">Status</p>
-                            <div className={"btn-status relative w-24 md:w-28 border flex items-center justify-between p-4 " + styleStatusBtn(order.paymentId?'Paid':'Waiting')}>
+                            <div className={"btn-status relative w-24 md:w-28 border p-4 " + styleStatusBtn(order.paymentId?'Paid':'Waiting')}>
                                 <p className="text-center">{order.paymentId?'Paid':'Waiting'}</p>
                             </div>
                         </div>
