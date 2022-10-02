@@ -66,6 +66,7 @@ export default function Home() {
             setMessage(['Fetch orders failed', 'Error occured. Please try logging in again.'])
             slideInAlert()
             setShowAlert(true)
+            localStorage.removeItem('username')
             setTimeout(redirectToLogin, 2000)
         }
     }

@@ -47,6 +47,7 @@ export default function Detail() {
             setMessage(['Fetch order detail failed', 'Error occured. Please try logging in again.'])
             slideInAlert()
             setShowAlert(true)
+            localStorage.removeItem('username')
             setTimeout(redirectToLogin, 2000)
         }
     }

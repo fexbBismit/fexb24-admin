@@ -3,10 +3,8 @@ import React, { useState } from "react"
 import Alert from "../components/Alert";
 import slideInAlert from "../util/slideInAlert";
 import axios from "axios";
-import { useAppContext } from "../util/AppContext";
 
 export default function Login() {
-    const { setUser } = useAppContext()
     const router = useRouter()
     const [showPwd, setShowPwd] = useState(false);
     function togglePwd(e) {
@@ -36,14 +34,14 @@ export default function Login() {
             'username': username,
             'password': password
         })
-        console.log(data)
+
         try {
             await axios.post('https://fexb-dev.herokuapp.com/admin/login', data, config)
             setSuccess(true)
             setMessage(['Login successful!', 'Welcome, admin!'])
             setShowAlert(true)
             slideInAlert()
-            setUser(username)
+            localStorage.setItem('username', username)
             setTimeout(redirectToHome, 2000)
         }
         catch (err) {
@@ -80,7 +78,7 @@ export default function Login() {
                     <h3>Welcome Back!</h3>
                     <div className="pt-9 pb-12">
                         <form className="space-y-4">
-                            <input id="username" type="text" placeholder="Enter your email *" className={errorCode === 1 && "error"} />
+                            <input id="username" type="text" placeholder="Enter your username *" className={errorCode === 1 && "error"} />
                             <input id="password" type={showPwd?"text":"password"} placeholder="Enter your password *" className={"relative" + (errorCode === 2 && ' error')} />
                             <span className="pt-1.5 absolute">
                                 <button className="btn-pwd -ml-12" onClick={(e) => togglePwd(e)}>
@@ -88,7 +86,7 @@ export default function Login() {
                                 </button>
                             </span>
                         </form>
-                        {errorCode && <div className="text-error text-xs text-left pt-2 pl-12 absolute flex items-end"><p className="pr-1">Incorrect email or password.</p><img src='/assets/question-circle.svg' alt="" className="question" /></div>}
+                        {errorCode && <div className="text-error text-xs text-left pt-2 pl-12 absolute flex items-end"><p className="pr-1">Incorrect username or password.</p><img src='/assets/question-circle.svg' alt="" className="question" /></div>}
                     </div>
                     <div className="p-1.5">
                         <button type="submit" disabled={loading} className="btn-lavender text-sm rounded-2xl py-2 px-16 font-bold disabled:bg-lavender-light" onClick={handleLogin}>Login</button>

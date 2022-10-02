@@ -1,12 +1,25 @@
 import React from "react";
 import { Menu, Transition } from '@headlessui/react'
-import { useAppContext } from "../util/AppContext";
+import { useRouter } from "next/router";
+import axios from "axios";
 
 const Navbar = () => {
-    const { user, setUser } = useAppContext()
+    const username = localStorage.getItem('username')
+    const router = useRouter()
 
     function mobileOnClick() {
         document.querySelector(".mobile-menu").classList.toggle("hidden");
+    }
+
+    const handleLogout = async () => {
+        try {
+            var res = await axios.post('https://fexb-dev.herokuapp.com/admin/logout')
+            console.log(res)
+        } catch (err) {
+            console.log(err)
+        }
+        localStorage.removeItem('username')
+        router.push('/login')
     }
 
     return (
@@ -29,7 +42,7 @@ const Navbar = () => {
                         <Menu>
                             <Menu.Button>
                                 <div className="hello">
-                                    <h1 className="float-left font-medium relative">Hello, {user}</h1>
+                                    <h1 className="float-left font-medium relative">Hello, {username}</h1>
                                     <div className="mt-2.5 ml-2.5" id="tri"></div>
                                 </div>
                             </Menu.Button>
@@ -44,10 +57,10 @@ const Navbar = () => {
                                 <Menu.Items>
                                     <Menu.Item>
                                     {({ active }) => (
-                                        <a className={`${active}`} href="/">
+                                        <a className={`${active}`}>
                                             <div className="origin-top-right font-medium absolute right-0 mt-6 w-32 rounded-xl shadow-lg bg-white hover:bg-gray z-10" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1" id="tri-drop">
                                                 <div className="py-1" role="none">
-                                                    <button className="text-red block w-full text-left px-4 py-2 text-sm" tabindex="-1" role="menuitem"><h2>Sign Out</h2></button>
+                                                    <button type="button" onClick={() => handleLogout()} className="text-red block w-full text-left px-4 py-2 text-sm" tabindex="-1" role="menuitem"><h2>Sign Out</h2></button>
                                                 </div>
                                             </div>
                                         </a>
@@ -77,10 +90,10 @@ const Navbar = () => {
             </div>
             <div className="hidden mobile-menu">
                 <ul className="bg-gray-light font-medium text-black divide-y divide-gray-200 transition duration-1000 ease-in-out">
-                    <li onClick={() => mobileOnClick()} className="cursor-pointer block text-sm px-2 py-4"><p>Hello, {user.username}<span className="font-stretch px-2">▴</span></p><div className="float-right border-solid border-t-black border-t-3 border-x-transparent border-x-3 border-b-0"></div></li>
+                    <li onClick={() => mobileOnClick()} className="cursor-pointer block text-sm px-2 py-4"><p>Hello, {username}<span className="font-stretch px-2">▴</span></p><div className="float-right border-solid border-t-black border-t-3 border-x-transparent border-x-3 border-b-0"></div></li>
                     <div role="none">
                         <li><a href="https://fexb.netlify.app/" className="block text-sm px-2 py-4 hover:bg-gray transition duration-300">Home</a></li>
-                        <li><a href="/logout" className="block text-sm text-red px-2 py-4 hover:bg-gray transition duration-300">Sign Out</a></li>
+                        <li><button type="button" onClick={() => handleLogout()} className="block text-sm text-red px-2 py-4 hover:bg-gray transition duration-300">Sign Out</button></li>
                     </div>
                 </ul>
             </div>
