@@ -5,7 +5,6 @@ import LoadingScreen from "../components/LoadingScreen";
 import Navbar from "../components/Navbar";
 import OrderTable from "../components/OrderTable"
 import Pagination from "../components/Pagination"
-import PopupDelete from "../components/PopupDelete";
 import SearchBar from "../components/SearchBar"
 import Sorter from "../components/Sorter"
 import Alert from "../components/Alert";
@@ -28,7 +27,6 @@ export default function Home() {
   const [searchBy, setSearchBy] = useState('nama')
   const [searchInput, setSearchInput] = useState('')
   
-  const [checkedList, setCheckedList] = useState([])
   const [isFetching, setIsFetching] = useState(false)
   const [isFirstRender, setIsFirstRender] = useState(true)
 
@@ -144,11 +142,10 @@ export default function Home() {
                     setIsFetching={setIsFetching}
                     setCurrentPage={setCurrentPage}
                  />
-                <PopupDelete checkedList={checkedList} setCheckedList={setCheckedList} />
             </div>
         </div>
         <div>
-            <OrderTable sortBy={sortBy} orders={orders} checkedList={checkedList} setCheckedList={setCheckedList} setCurrentPage={setCurrentPage} isFetching={isFetching} />
+            <OrderTable sortBy={sortBy} orders={orders} setCurrentPage={setCurrentPage} isFetching={isFetching} />
         </div>
     </div></>
     }

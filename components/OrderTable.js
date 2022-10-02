@@ -2,27 +2,9 @@ import Link from "next/link";
 import React, { useEffect } from "react";
 import formatDate from "../util/formatDate";
 
-const OrderTable = ( {sortBy, orders, checkedList, setCheckedList, setCurrentPage, isFetching} ) => {
-
-    function handleCheck(e, id) {
-        var checked = checkedList
-        if (e.target.checked) {
-            checked.push(id)
-        } else {
-            checked.splice(checked.findIndex((obj) => obj === id))
-        }
-        setCheckedList(checked)
-    }
+const OrderTable = ( {sortBy, orders, setCurrentPage, isFetching} ) => {
 
     function saveCheckedState() {
-        document.querySelectorAll('input[type=checkbox]:checked').forEach(el => el.checked = false)
-        for (var i = 0; i < checkedList.length; i++) {
-            var id = checkedList[i]
-            var checked = document.getElementById(id)
-            if (checked) {
-                checked.checked  = true
-            }
-        }
         var sorter = document.getElementById('sorter')
         if (sortBy) {
             sorter.checked = true
@@ -57,7 +39,6 @@ const OrderTable = ( {sortBy, orders, checkedList, setCheckedList, setCurrentPag
                 <table className=" text-2xs md:text-sm w-full header-fixed" id="order-table">
                     <thead className="bg-gray-light">
                         <tr className="text-purple">
-                            <th className=""></th>
                             <th className="">ORDER ID</th>
                             <th className="">STATUS</th>
                             <th className="">ORDER DATE</th>
@@ -82,12 +63,6 @@ const OrderTable = ( {sortBy, orders, checkedList, setCheckedList, setCurrentPag
                         </tr>:
                         <>{orders.map(order => (
                             <tr>
-                                <td className="w-6 md:w-9 ">
-                                    <label className="container-check">
-                                        <input type="checkbox" className="order-checkbox" id={order.id} onChange={(e) => handleCheck(e, order.id)} />
-                                        <span className="checkmark"></span>
-                                    </label>
-                                </td>
                                 <td className="font-bold">{order.id}</td>
                                 <td>
                                     {order.paymentId !== null && <div className="btn-status border-paid-out text-paid bg-paid-in w-full">Paid</div>}

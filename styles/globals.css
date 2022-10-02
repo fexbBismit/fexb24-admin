@@ -371,30 +371,29 @@ input:focus{
 
   .header-fixed td:first-child,
   .header-fixed th:first-child {
-    width: 2.5rem;
-    margin-left: 0.9rem;
-    margin-right: 0.3rem;
+    width: 12rem;
+    margin-left: 1rem;
+  }
+  .header-fixed td:nth-child(4),
+  .header-fixed th:nth-child(4) {
+    width: 11rem;
   }
   .header-fixed td:nth-child(5),
-  .header-fixed th:nth-child(5) {
-    width: 12rem;
-  }
-  .header-fixed td:nth-child(6),
-  .header-fixed th:nth-child(6){
+  .header-fixed th:nth-child(5){
     width: 9.05rem;
   }
   
-  .header-fixed td:nth-child(8),
-  .header-fixed th:nth-child(8) {
-    width: 9.2rem;
+  .header-fixed td:nth-child(7),
+  .header-fixed th:nth-child(7) {
+    width: 9rem;
   }
   
+  .header-fixed td:nth-child(2),
+  .header-fixed th:nth-child(2),
   .header-fixed td:nth-child(3),
   .header-fixed th:nth-child(3),
-  .header-fixed td:nth-child(4),
-  .header-fixed th:nth-child(4),
-  .header-fixed td:nth-child(9),
-  .header-fixed th:nth-child(9) {
+  .header-fixed td:nth-child(8),
+  .header-fixed th:nth-child(8) {
     width: 7.15rem;
   }
 
