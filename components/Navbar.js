@@ -12,12 +12,18 @@ const Navbar = () => {
     }
 
     const handleLogout = async () => {
+        const config = {
+            headers: {
+                'x-auth-jwt': localStorage.getItem('token')
+            }
+        }
         try {
-            var res = await axios.post('https://fexb-dev.herokuapp.com/admin/logout')
+            var res = await axios.post('https://fexb-dev.herokuapp.com/admin/logout', config)
             console.log(res)
         } catch (err) {
             console.log(err)
         }
+        localStorage.removeItem('token')
         localStorage.removeItem('username')
         router.push('/login')
     }

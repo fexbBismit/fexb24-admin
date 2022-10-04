@@ -36,7 +36,8 @@ export default function Login() {
         })
 
         try {
-            await axios.post('https://fexb-dev.herokuapp.com/admin/login', data, config)
+            var response = await axios.post('https://fexb-dev.herokuapp.com/admin/login', data, config)
+            localStorage.setItem('token', response.data['jwt'])
             setSuccess(true)
             setMessage(['Login successful!', 'Welcome, admin!'])
             setShowAlert(true)

@@ -41,7 +41,8 @@ export default function Home() {
         try {
             const config = {
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'x-auth-jwt': localStorage.getItem('token')
                 }
             };
             

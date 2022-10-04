@@ -11,7 +11,6 @@ import axios from 'axios'
 
 export default function Detail() {
     const router = useRouter();
-    console.log(router.query.id);
 
     const [loading, setLoading] = useState(true)
     const [order, setOrder] = useState({})
@@ -36,8 +35,14 @@ export default function Detail() {
     }
     
     const fetchOrderDetail = async () => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'x-auth-jwt': localStorage.getItem('token')
+            }
+        };
         try {
-            var fetchedOrder = await axios.get('https://fexb-dev.herokuapp.com/api/order/' + router.query.id)
+            var fetchedOrder = await axios.get('https://fexb-dev.herokuapp.com/api/order/' + router.query.id, config)
             console.log(fetchedOrder.data)
             setOrder(fetchedOrder.data)
             setLoading(false)
@@ -74,7 +79,7 @@ export default function Detail() {
                         <div className="detail-title">
                             <div className="flex items-center w-full">
                                 <span className="md:pl-1 text-sm md:text-xl">Order ID</span>
-                                <span className="text-purple text-xs md:text-md pl-4">{order.id}</span> 
+                                <span className="text-purple text-xs md:text-base pl-3">{order.id}</span> 
                             </div>
                         </div>
                     </div>
