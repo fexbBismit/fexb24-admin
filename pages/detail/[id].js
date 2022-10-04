@@ -43,7 +43,6 @@ export default function Detail() {
         };
         try {
             var fetchedOrder = await axios.get('https://fexb-dev.herokuapp.com/api/order/' + router.query.id, config)
-            console.log(fetchedOrder.data)
             setOrder(fetchedOrder.data)
             setLoading(false)
         }

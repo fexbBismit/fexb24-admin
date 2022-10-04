@@ -2,7 +2,6 @@ import React from "react";
 import { Menu, Transition } from '@headlessui/react'
 
 const SearchBar = ( { setIsFetching, searchBy, setSearchBy, setSearchInput, setCurrentPage } ) => {
-    console.log('search')
     function changeSearchBy(by) {
         setSearchBy(by)
         document.getElementById('search').value = '';

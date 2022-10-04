@@ -6,10 +6,8 @@ const Sorter = ({ setSortBy, setIsFetching }) => {
         var radioBtn = document.getElementById('sorter')
         if (radioBtn.checked) {
             setSortBy(true)
-            console.log('wab')
         } else {
             setSortBy(false)
-            console.log('ah')
         }
         setIsFetching(true)
     }

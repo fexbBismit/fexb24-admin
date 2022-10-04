@@ -20,7 +20,6 @@ const Tickets = ({ order }) => {
             }
         })
         setTicketPrices(tickets)
-        console.log(tickets)
     }, [order])
 
     return (

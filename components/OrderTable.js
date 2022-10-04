@@ -65,11 +65,9 @@ const OrderTable = ( {sortBy, orders, setCurrentPage, isFetching} ) => {
                             <tr>
                                 <td className="font-bold">{order.id}</td>
                                 <td>
-                                    {order.paymentId !== null && <div className="btn-status border-paid-out text-paid bg-paid-in w-full">Paid</div>}
+                                    {order.paymentId !== null && <div className="btn-status border-paid-out text-paid bg-paid-in w-full"><span className="px-3">Paid</span></div>}
                                     
-                                    {order.paymentId === null && <div className="btn-status border-wait-out text-wait bg-wait-in w-full">Waiting</div>}
-                                    
-                                    {order.status === 'Cancelled' && <div className="btn-status border-cancel text-cancel bg-cancel-in w-full">{order.status}</div>}
+                                    {order.paymentId === null && <div className="btn-status border-wait-out text-wait bg-wait-in w-full"><span className="px-3">Waiting</span></div>}
                                 </td>
                                 <td className="md:w-24">{formatDate(new Date(order.createdAt))}</td>
                                 <td className="font-bold"><p>{order.listPembeli[0].nama}{order.listPembeli.length > 1 && <>, <p className="text-purple">and others</p></>}</p></td>
