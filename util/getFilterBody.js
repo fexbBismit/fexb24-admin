@@ -18,6 +18,8 @@ function getFilterBody(sortBy, filter, searchBy, searchInput) {
             "value": searchInput
         }
     }
+    
+    console.log(body)
     return body
 }
 

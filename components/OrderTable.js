@@ -5,7 +5,7 @@ import formatDate from "../util/formatDate";
 const OrderTable = ( {sortBy, orders, setCurrentPage, isFetching} ) => {
 
     function saveCheckedState() {
-        var sorter = document.getElementById('sorter')
+        var sorter = document.getElementById('sort')
         if (sortBy) {
             sorter.checked = true
         } else {

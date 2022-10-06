@@ -40,7 +40,7 @@ const Tickets = ({ order }) => {
                         </thead>
                         <tbody>
                             {Object.entries(order.tiketFrequency).map(([key, value]) => (
-                            <tr className="text-2xs md:text-sm">
+                            <tr className="text-2xs md:text-sm" key={key}>
                                 <td>{key}</td>
                                 <td>x {value}</td>
                                 <td>Rp {getUnitPrice(key).toLocaleString('id')},-</td>
