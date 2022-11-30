@@ -47,7 +47,7 @@ export default function Home() {
             };
             
             var body = JSON.stringify(getFilterBody(sortBy, filter, searchBy, searchInput))
-            var fetchedOrders = await axios.post(`https://fexb-dev.herokuapp.com/api/get-order?page=${currentPage}`, body, config)
+            var fetchedOrders = await axios.post(`https://api.staging.fexbfebui.site/api/get-order?page=${currentPage}`, body, config)
 
             var counts = [fetchedOrders.data.metadata.totalOrder, fetchedOrders.data.metadata.totalWaitingOrder, fetchedOrders.data.metadata.totalPaidOrder]
             setStatusCounts(counts)

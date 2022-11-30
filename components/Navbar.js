@@ -18,7 +18,7 @@ const Navbar = () => {
             }
         }
         try {
-            var res = await axios.post('https://fexb-dev.herokuapp.com/admin/logout', config)
+            var res = await axios.post('https://api.staging.fexbfebui.site/admin/logout', config)
             console.log(res)
         } catch (err) {
             console.log(err)
